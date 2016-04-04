@@ -1,0 +1,14 @@
+{
+  "apps" : [
+    {
+      "name"       : "redis-worker",
+      "script"     : "worker.js",
+      "watch"       : "."
+    },
+    {
+      "name"       : "twitter-stream-api",
+      "script"     : "app.js",
+      "watch"       : "."
+    }
+  ]
+}
