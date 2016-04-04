@@ -1,8 +1,8 @@
 var config = {};
 
 config.app = {
-    name: "Twitter Stream",
-    description: "Twitter Stream to Redis",
+    name: "Twitter Stream API",
+    description: "Twitter Stream to Redis with Express API",
     version: "0.0.1",
     keyword: "#sxsw"
 };
