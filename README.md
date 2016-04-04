@@ -2,7 +2,7 @@
 
 ## Use cases Apps
 
-### [Twitter Stream](tree/master/twitter-stream)
+### [Twitter Stream](twitter-stream)
 Using a Redis worker service that opens a connection to Twitter using the Twitter Stream API and dumps the values into a Redis Database.**(Using Zset and hash data structures).**
 
 ## Purpose
