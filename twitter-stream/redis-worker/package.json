@@ -1,0 +1,19 @@
+{
+  "name": "twitter-stream",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./worker.js"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "q": "^1.4.1",
+    "redis": "^2.0.1",
+    "string-hash": "^1.1.0",
+    "twitter": "^1.2.5",
+    "twitter-text": "^1.13.4"
+  },
+  "devDependencies": {
+    "unit.js": "^2.0.0"
+  }
+}
