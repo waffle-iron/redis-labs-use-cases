@@ -6,7 +6,7 @@ var rootFunc = function(req, res) {
 
 var findByHashTag = function(req, res, next) {
   console.log("Searching", req.params.hashtag);
-  search.searchHashtag(req.params.hashtag)
+  search.findByHashtag(req.params.hashtag)
     .then(function(result){
       res.json({"status" : "success", "result" : result });
     })
