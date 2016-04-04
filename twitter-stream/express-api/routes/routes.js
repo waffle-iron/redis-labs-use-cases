@@ -1,29 +1,32 @@
 var search = require("./../modules/search.js");
 
+var rootFunc = function(req, res) {
+  res.send("Twitter Stream: Express API");
+};
+
+var findByHashTag = function(req, res, next) {
+  console.log("Searching", req.params.hashtag);
+  search.searchHashtag(req.params.hashtag)
+    .then(function(result){
+      res.json({"status" : "success", "result" : result });
+    })
+    .fail(function(err){
+      console.error("Error", err);
+      res.json({"status" : "error", "message" : err});
+    });
+};
+
+var findByTweet = function(req, res, next) {
+  search.findById(req.params.tweet)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
+
 var appRouter = function(app) {
-
-  app.get("/", function(req, res) {
-    res.send("Twitter Stream: Express API");
-  });
-
-  app.get('/hashtag/:hashtag', function(req, res, next) {
-    console.log("Searching", req.params.hashtag);
-    search.searchHashtag(req.params.hashtag)
-      .then(function(result){
-        res.json({"status" : "success", "result" : result });
-      })
-      .fail(function(err){
-        console.error("Error", err);
-        res.json({"status" : "error", "message" : err});
-      });
-  });
-
-  app.get('/tweet/:tweet', function(req, res, next) {
-    search.findById(req.params.tweet)
-      .then( function(result) { res.json({"status" : "success", "result" : result }); })
-      .fail( function(result) { res.json({"status" : "error", "message" : err}); });
-  });
-
+  app.get("/", rootFunc);
+  app.get('/hashtag/:hashtag', findByHashTag);
+  app.get('/tweet/:tweet', findByTweet);
 };
 
 module.exports = appRouter;
