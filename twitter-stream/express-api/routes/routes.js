@@ -3,10 +3,10 @@ var search = require("./../modules/search.js");
 var appRouter = function(app) {
 
   app.get("/", function(req, res) {
-    res.send("Twitter Stream API");
+    res.send("Twitter Stream: Express API");
   });
 
-  app.get('/tweet/hashtag/:hashtag', function(req, res, next) {
+  app.get('/hashtag/:hashtag', function(req, res, next) {
     console.log("Searching", req.params.hashtag);
     search.searchHashtag(req.params.hashtag)
       .then(function(result){
@@ -18,12 +18,11 @@ var appRouter = function(app) {
       });
   });
 
-  app.get('/tweet/list', function(req, res, next) {
-  });
-
   app.get('/tweet/:tweet', function(req, res, next) {
+    search.findById(req.params.tweet)
+      .then( function(result) { res.json({"status" : "success", "result" : result }); })
+      .fail( function(result) { res.json({"status" : "error", "message" : err}); });
   });
-
 
 };
 

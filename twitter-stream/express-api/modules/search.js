@@ -18,6 +18,19 @@ if (redis.auth) {
     });
 }
 
+exports.findById = function(tweetId) {
+  var dfd = Q.defer();
+  redis.hget("tweetIndex", tweetId, function (err, reply) {
+    if(err) {
+      dfd.reject(err);
+      return;
+    }
+    return dfd.resolve(reply);
+  });
+
+  return dfd.promise;
+};
+
 exports.searchHashtag = function(hashtag) {
     var deferred = Q.defer();
     var score = stringHash(hashtag);

@@ -34,7 +34,8 @@ pm2 start pm2.json
 It will run two process, one with the worker, and another with Express running on port 3000 serving data.
 
 Point your browser:
-  - List tweets by hashtag [http://localhost:3000/tweet/hashtag/sxsw](http://localhost:3000/tweet/hashtag/sxsw)
+  - List tweets by hashtag [http://localhost:3000/hashtag/sxsw](http://localhost:3000/hashtag/sxsw)
+  - Show tweet: http://localhost:3000/tweet/123456
 
 ## Help
 

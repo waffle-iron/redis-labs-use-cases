@@ -6,7 +6,7 @@
       "watch"       : "."
     },
     {
-      "name"       : "twitter-stream-api",
+      "name"       : "express-api",
       "script"     : "app.js",
       "watch"       : "."
     }
