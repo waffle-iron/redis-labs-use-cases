@@ -25,49 +25,53 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+
+  .state('app.recommendations', {
+    url: '/recommendations',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/recommendations.html',
+        controller: 'TweetListCtrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.favorites', {
+    url: '/favorites',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/favorites.html',
+        controller: 'TweetListCtrl'
+      }
+    }
+  })
+
+  .state('app.tweets', {
+    url: '/tweets',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/tweetlist.html',
+        controller: 'TweetListCtrl'
+      }
+    }
+  })
+
+  .state('app.tweet-detail', {
+    url: '/tweets/:tweetId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/tweetdetail.html',
+        controller: 'TweetDetailCtrl'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/tweets');
 });
