@@ -11,9 +11,35 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('TweetListCtrl', function($scope, $rootScope, tweet) {
-  $scope.tweets = tweet.findByHashtag($rootScope.defaultHashtag);
+.controller('TweetListCtrl', function($scope, $rootScope, tweet, $q) {
+
+  $scope.tweets = [];
+
+  var getDefaultCriteria = function() {
+    return $rootScope.defaultHashtag;
+  };
+
+  var loadData = function() {
+    if($scope.searchKey) {
+      tweet.findByHashtag($scope.searchKey)
+        .then(function(r) {
+          $scope.tweets = r.data.result;
+        });
+    }
+  };
+
+  var clearCriteria = function() {
+    $scope.searchKey = getDefaultCriteria();
+    $scope.loadData();
+  };
+
+  $scope.searchKey = getDefaultCriteria();
+  $scope.loadData = loadData;
+  $scope.clearCriteria = clearCriteria;
+  $scope.loadData();
+
 })
 
-.controller('TweetDetailCtrl', function($scope, $stateParams) {
+.controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail) {
+  $scope.tweet = tweetDetail;
 });

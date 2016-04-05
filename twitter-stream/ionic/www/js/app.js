@@ -9,7 +9,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .run(function($ionicPlatform, $rootScope) {
 
   $rootScope.apiBase = 'http://localhost:3000';
-  $rootScope.defaultHashtag = '#swsx';
+  $rootScope.defaultHashtag = 'sxsw';
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -72,7 +72,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'menuContent': {
         templateUrl: 'templates/tweetdetail.html',
-        controller: 'TweetDetailCtrl'
+        controller: 'TweetDetailCtrl',
+        resolve: {
+          tweetDetail: function(tweet, $stateParams) {
+            return tweet.findById($stateParams.tweetId).then(function(r) {
+              return r.data.result;
+            });
+          }
+        }
       }
     }
   });

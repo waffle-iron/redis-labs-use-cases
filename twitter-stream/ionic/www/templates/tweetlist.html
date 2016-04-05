@@ -1,8 +1,15 @@
 <ion-view view-title="Tweets">
-  <ion-content>
+  <div class="bar bar-subheader item-input-inset">
+    <label class="item-input-wrapper" id="search-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input id="searchKey" type="search" placeholder="Search" autocorrect="off" ng-minlength="4" ng-model="searchKey" ng-change="loadData()">
+    </label>
+    <button class="button button-clear icon ion-close-round" ng-click="clearCriteria()"></button>
+  </div>
+  <ion-content id="content" class="has-header has-subheader">
     <ion-list>
       <ion-item ng-repeat="tweet in tweets" ui-sref="app.tweet-detail({tweetId: tweet.id })">
-        {{tweet.title}}
+        {{tweet.content | limitTo: 40 }}...
       </ion-item>
     </ion-list>
   </ion-content>
