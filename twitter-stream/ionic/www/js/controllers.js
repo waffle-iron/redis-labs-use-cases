@@ -11,15 +11,8 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('TweetListCtrl', function($scope) {
-  $scope.tweets = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('TweetListCtrl', function($scope, $rootScope, tweet) {
+  $scope.tweets = tweet.findByHashtag($rootScope.defaultHashtag);
 })
 
 .controller('TweetDetailCtrl', function($scope, $stateParams) {
