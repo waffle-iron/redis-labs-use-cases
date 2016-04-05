@@ -8,8 +8,11 @@
   </div>
   <ion-content id="content" class="has-header has-subheader">
     <ion-list>
-      <ion-item ng-repeat="tweet in tweets" ui-sref="app.tweet-detail({tweetId: tweet.id })">
-        {{tweet.content | limitTo: 40 }}...
+      <ion-item class="item-icon-right item-avatar" ng-repeat="tweet in tweets" type="item-text-wrap" ui-sref="app.tweet-detail({tweetId: tweet.id })">
+        <img ng-src="img/twitter-icon.png">
+        <h2></h2>
+        <p>{{tweet.content | limitTo: 40 }}...</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
   </ion-content>
