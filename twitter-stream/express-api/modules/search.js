@@ -25,7 +25,7 @@ exports.findById = function(tweetId) {
       dfd.reject(err);
       return;
     }
-    return dfd.resolve(reply);
+    return dfd.resolve({ id: tweetId, content: reply });
   });
 
   return dfd.promise;
@@ -49,7 +49,7 @@ exports.findByHashtag = function(hashtag) {
         async.forEach(response, function (tweetId, callback) {
           redis.hget("tweetIndex", tweetId, function (err, reply) {
             // console.log(">>",reply);
-            result.push(reply);
+            result.push({ id: tweetId, content: reply});
             callback();
           });
         }, function (err) {
