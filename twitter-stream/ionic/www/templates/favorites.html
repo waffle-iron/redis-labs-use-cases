@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="tweet in tweets" ui-sref="app.tweet-detail({tweetId: tweet.id })">
-        {{tweet.title}}
+        {{tweet.content}}
       </ion-item>
     </ion-list>
   </ion-content>

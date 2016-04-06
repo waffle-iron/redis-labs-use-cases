@@ -52,7 +52,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'menuContent': {
         templateUrl: 'templates/favorites.html',
-        controller: 'TweetListCtrl'
+        controller: 'TweetFavoriteCtrl',
+        resolve: {
+          tweetFavorites: function(tweet) {
+            return tweet.getFavorites();
+          }
+        }
       }
     }
   })

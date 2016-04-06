@@ -40,6 +40,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail) {
+.controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail, tweet) {
   $scope.tweet = tweetDetail;
+  $scope.favorite = tweet.favorite;
+  $scope.isFavorite = tweet.isFavorite;
+  $scope.unfavorite = tweet.unfavorite;
+})
+
+.controller('TweetFavoriteCtrl', function($scope, $stateParams, tweetFavorites) {
+  $scope.tweets = tweetFavorites;
 });
+

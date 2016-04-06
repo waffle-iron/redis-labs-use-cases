@@ -4,6 +4,12 @@
       <ion-card-content>
         <h2 class="card-title"></h2>
         <p>{{ tweet.content }}</p>
+
+        <div class="button-bar">
+          <a class="button" ng-show="!isFavorite(tweet)" ng-click="favorite(tweet)">Fav</a>
+          <a class="button" ng-show="isFavorite(tweet)" ng-click="unfavorite(tweet)">UnFav</a>
+        </div>
+
       </ion-card-content>
     </ion-card>
   </ion-content>
