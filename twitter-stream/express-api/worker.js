@@ -39,7 +39,7 @@ client.stream('statuses/filter', {track: config.app.keyword, lang: 'en'},  funct
         redis.hset(config.store.tweetHash, tweet.id_str, tweet.text);
 
         //Preparing zset vote idnex
-        var tVote = [ config.store.voteZset, 1, tweet.id_str ];
+        var tVote = [ config.store.voteZset, 0, tweet.id_str ];
         redis.zadd(tVote);
 
         // Add to set and list
