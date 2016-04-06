@@ -20,7 +20,7 @@ if(redis.auth) {
 
 exports.findById = function(tweetId) {
   var dfd = Q.defer();
-  redis.hget("tweetIndex", tweetId, function (err, reply) {
+  redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
     if(err) {
       dfd.reject(err);
       return;
@@ -34,7 +34,7 @@ exports.findById = function(tweetId) {
 exports.findByHashtag = function(hashtag) {
   var deferred = Q.defer();
   var score = stringHash(hashtag);
-  var args1 = [ 'hashtagIndex', score, score ];
+  var args1 = [ config.store.hashtagZset, score, score ];
 
   redis.zrangebyscore(args1, function (err, response) {
     var result = [];
@@ -47,7 +47,7 @@ exports.findByHashtag = function(hashtag) {
       } else {
         //console.log('Result', response);
         async.forEach(response, function (tweetId, callback) {
-          redis.hget("tweetIndex", tweetId, function (err, reply) {
+          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
             // console.log(">>",reply);
             result.push({ id: tweetId, content: reply});
             callback();

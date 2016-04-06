@@ -21,4 +21,10 @@ config.twitter =
     access_token_secret: ''
 };
 
+config.store = {
+  tweetHash: 'tweetIndex',
+  voteZset: 'voteIndex',
+  hashtagZset: 'hashtagIndex'
+};
+
 module.exports = config;
