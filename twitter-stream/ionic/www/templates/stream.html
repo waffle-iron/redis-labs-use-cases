@@ -1,0 +1,14 @@
+<ion-view view-title="My stream view">
+  <ion-content>
+      <td-cards>
+        <td-card ng-repeat="card in cards | matcher: swiped" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft(card)" on-swipe-right="cardSwipedRight(card)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
+          <div class="image">
+            <div class="no-text">NOPE</div>
+            <img ng-src="img/twitter-bg.png">
+            <div class="yes-text">LIKE</div>
+            <div class="content-text"><p>{{ card.content }}</p></div>
+          </div>
+        </td-card>
+      </td-cards>
+  </ion-content>
+</ion-view>

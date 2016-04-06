@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.contrib.ui.tinderCards'])
 
 .run(function($ionicPlatform, $rootScope) {
 
@@ -68,6 +68,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'menuContent': {
         templateUrl: 'templates/tweetlist.html',
         controller: 'TweetListCtrl'
+      }
+    }
+  })
+
+  .state('app.stream', {
+    url: '/stream',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/stream.html',
+        controller: 'StreamCtrl',
+        resolve: {
+          tweetList: function(tweet, $stateParams, $rootScope) {
+            return tweet.findByHashtag($rootScope.defaultHashtag).then(function(r) {
+              return r.data.result;
+            });
+          }
+        }
       }
     }
   })
