@@ -41,7 +41,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/recommendations',
     views: {
       'menuContent': {
-        templateUrl: 'templates/recommendations.html'
+        templateUrl: 'templates/recommendations.html',
+        controller: 'RecommendationCtrl',
+        resolve: {
+          tweetList: function(tweet, $stateParams, $rootScope) {
+            return tweet.findRecommendations().then(function(r) {
+              return r.data.result;
+            });
+          }
+        }
       }
     }
   })

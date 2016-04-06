@@ -13,6 +13,14 @@ angular.module('starter.services', [])
     return $http.get($rootScope.apiBase + '/tweet/' + id);
   };
 
+  _tweet.findRecommendations = function() {
+    return $http.get($rootScope.apiBase + '/recommendations/');
+  };
+
+  _tweet.voteTweet = function(id) {
+    return $http.get($rootScope.apiBase + '/vote/' + id);
+  };
+
   _tweet.getFavorites = function() {
     return _favorites;
   };
@@ -25,7 +33,11 @@ angular.module('starter.services', [])
         break;
       }
     }
-    if (!exists) _favorites.push(tweet);
+
+    if (!exists) {
+      _favorites.push(tweet);
+      _tweet.voteTweet(tweet.id);
+    }
   };
 
   _tweet.unfavorite = function(tweet) {

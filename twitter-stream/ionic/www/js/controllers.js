@@ -51,6 +51,11 @@ angular.module('starter.controllers', [])
   $scope.tweets = tweetFavorites;
 })
 
+
+.controller('RecommendationCtrl', function($scope, $stateParams, tweetList) {
+  $scope.tweets = tweetList;
+})
+
 .controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweetList, tweet) {
 
   $scope.cards = tweetList;
