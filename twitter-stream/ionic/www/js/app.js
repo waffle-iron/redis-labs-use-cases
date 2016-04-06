@@ -41,8 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/recommendations',
     views: {
       'menuContent': {
-        templateUrl: 'templates/recommendations.html',
-        controller: 'TweetListCtrl'
+        templateUrl: 'templates/recommendations.html'
       }
     }
   })
