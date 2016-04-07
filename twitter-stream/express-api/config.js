@@ -8,9 +8,7 @@ config.app = {
 };
 
 config.redis = {
-    port: process.env.REDIS_PORT || '6379',
-    host: process.env.REDIS_HOST || 'localhost',
-    auth: process.env.REDIS_AUTH || ''
+  url: process.env.REDISCLOUD_URL || 'redis://localhost:6379',
 };
 
 config.twitter =

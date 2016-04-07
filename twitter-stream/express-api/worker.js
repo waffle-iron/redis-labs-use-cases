@@ -12,19 +12,8 @@ var stringHash = require('string-hash');
 var client = new Twitter(config.twitter);
 
 // Set up connection to Redis
-var redis = require("redis").createClient(
-        config.redis.port,
-        config.redis.host,
-        {detect_buffers: true});
-
-if (redis.auth) {
-    redis.auth(config.redis.auth, function (err) {
-        if (err) {
-            console.error("Redis Authentication failed");
-        } else {
-        }
-    });
-}
+var redis_conn = require("redis");
+var redis = redis_conn.createClient(config.redis.url, {detect_buffers: true, no_ready_check: true});
 
 /**
  * Stream statuses filtered by keyword
