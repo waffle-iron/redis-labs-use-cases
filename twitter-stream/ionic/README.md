@@ -10,6 +10,11 @@
   ionic state restore
 ```
 
+## Config
+
+Edit  www/js/app.js and point apiBase to your URL.
+
+
 ## Usage
 
 ```sh
