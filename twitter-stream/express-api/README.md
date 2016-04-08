@@ -37,6 +37,12 @@ Point your browser:
   - List tweets by hashtag [http://localhost:3000/hashtag/sxsw](http://localhost:3000/hashtag/sxsw)
   - Show tweet: http://localhost:3000/tweet/123456
 
+
+## Hosted version
+
+[Click here to run a hosted version](redis-twitter-stream.herokuapp.com)
+
+
 ## Help
 
 [Using PM2 command line](https://github.com/Unitech/pm2)
