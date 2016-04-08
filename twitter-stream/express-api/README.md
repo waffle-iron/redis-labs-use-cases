@@ -40,7 +40,7 @@ Point your browser:
 
 ## Hosted version
 
-[Click here to run a hosted version](redis-twitter-stream.herokuapp.com)
+[Click here to run a hosted version](http://redis-twitter-stream.herokuapp.com)
 
 
 ## Help

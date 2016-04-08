@@ -31,3 +31,8 @@ To run on iOS:
 To run on Android:
   ionic run android
 
+
+## Hosted version
+
+[Click here to run a hosted version](http://redis-twitter-stream-ionic.herokuapp.com)
+
