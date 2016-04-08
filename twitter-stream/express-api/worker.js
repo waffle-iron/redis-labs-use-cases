@@ -15,6 +15,10 @@ var client = new Twitter(config.twitter);
 var redis_conn = require("redis");
 var redis = redis_conn.createClient(config.redis.url, {detect_buffers: true, no_ready_check: true});
 
+redis.on("error", function (err) {
+    console.log("Error: " + err);
+});
+
 /**
  * Stream statuses filtered by keyword
  * number of tweets per second depends on topic popularity
