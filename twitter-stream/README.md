@@ -1,5 +1,6 @@
 # Twitter Stream
-Several examples on using redis with twitter stream api.
+
+![Twitter Stream Diagram](assets/twitter-stream.png)
 
 ## [Express API + Worker](express-api)
   1. Redis worker service that using twitter stream api gets and index tweets by a hashtag keyword.
