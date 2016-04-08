@@ -1,9 +1,0 @@
-{
-  "apps" : [
-    {
-      "name"       : "twitter-stream",
-      "script"     : "worker.js",
-      "watch"       : "."
-    }
-  ]
-}
