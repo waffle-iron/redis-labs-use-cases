@@ -7,6 +7,10 @@ var Q = require('q');
 var redis_conn = require("redis");
 var redis = redis_conn.createClient(config.redis.url, {detect_buffers: true, no_ready_check: true});
 
+redis.on("error", function (err) {
+    console.log("Error: " + err);
+});
+
 exports.findRecommendations = function() {
   var deferred = Q.defer();
   var rangeArgs = [ config.store.voteZset, 0, 9 ];
