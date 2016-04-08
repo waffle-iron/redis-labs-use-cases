@@ -11,8 +11,19 @@ var findRecommendations = function(req, res, next) {
 };
 
 var findByHashtag = function(req, res, next) {
+  var offset = 0;
+  var qty_per_page = 10;
+
+  if(req.query.page) {
+    offset = (parseInt(req.query.page)-1) * qty_per_page;
+  }
+
+  if(offset <= 0) {
+    offset = 0;
+  }
+
   console.log("Searching", req.params.hashtag);
-  search.findByHashtag(req.params.hashtag)
+  search.findByHashtag(req.params.hashtag, offset, qty_per_page)
     .then(function(result){
       res.json({"status" : "success", "result" : result });
     })

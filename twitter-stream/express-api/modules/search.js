@@ -69,10 +69,16 @@ exports.findById = function(tweetId) {
   return dfd.promise;
 };
 
-exports.findByHashtag = function(hashtag) {
+exports.findByHashtag = function(hashtag, offset, count) {
   var deferred = Q.defer();
   var score = stringHash(hashtag);
-  var args1 = [ config.store.hashtagZset, score, score ];
+  var default_offset = 0;
+  var default_count = 10;
+
+  offset = (offset === undefined) ? default_offset : offset;
+  count = (count === undefined) ? default_count : count;
+
+  var args1 = [ config.store.hashtagZset, score, score, 'LIMIT', offset, count ];
 
   redis.zrangebyscore(args1, function (err, response) {
     var result = [];
