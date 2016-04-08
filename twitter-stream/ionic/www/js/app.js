@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function($ionicPlatform, $rootScope, $localStorage, uuid4) {
 
-  $rootScope.apiBase = 'http://localhost:3000';
+  $rootScope.apiBase = 'http://redis-twitter-stream.herokuapp.com';
   $rootScope.defaultHashtag = 'sxsw';
   $rootScope.channel = 'sxsw';
   $rootScope.channels = ['sxsw', 'RedisConf'];
