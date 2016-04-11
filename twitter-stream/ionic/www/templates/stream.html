@@ -6,7 +6,7 @@
             <div class="no-text">NOPE</div>
             <img ng-src="img/twitter-bg.png">
             <div class="yes-text">LIKE</div>
-            <div class="content-text"><p>{{ card.content }}</p></div>
+            <div class="content-text"><p ng-bind-html="card.content | linky: '_blank'"></p></div>
           </div>
         </td-card>
       </td-cards>

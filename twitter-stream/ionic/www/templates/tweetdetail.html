@@ -3,7 +3,7 @@
     <ion-card>
       <ion-card-content>
         <h2 class="card-title"></h2>
-        <p>{{ tweet.content }}</p>
+        <p ng-bind-html="tweet.content | linky: '_blank'"></p>
 
         <div class="button-bar">
           <a class="button" ng-show="!isFavorite(tweet)" ng-click="favorite(tweet)">Fav</a>
