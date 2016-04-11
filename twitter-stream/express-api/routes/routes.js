@@ -22,7 +22,7 @@ var findByHashtag = function(req, res, next) {
     offset = 0;
   }
 
-  console.log("Searching", req.params.hashtag);
+  console.log("Searching", req.params.hashtag, offset, qty_per_page);
   search.findByHashtag(req.params.hashtag, offset, qty_per_page)
     .then(function(result){
       res.json({"status" : "success", "result" : result });
