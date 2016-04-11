@@ -1,4 +1,4 @@
-<ion-view view-title="My stream view">
+<ion-view view-title="Unviewed tweets">
   <ion-content>
       <td-cards>
         <td-card ng-repeat="card in cards | matcher: swiped" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft(card)" on-swipe-right="cardSwipedRight(card)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
