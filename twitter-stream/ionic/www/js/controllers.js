@@ -12,7 +12,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('TweetListCtrl', function($scope, $rootScope, tweet, $q) {
-
+  $scope.page = 0;
+  $scope.next = true;
   $scope.tweets = [];
 
   var getDefaultCriteria = function() {
@@ -20,24 +21,31 @@ angular.module('starter.controllers', [])
   };
 
   var loadData = function() {
-    if($scope.searchKey) {
-      tweet.findByHashtag($scope.searchKey)
+    if($scope.searchKey && $scope.next) {
+      $scope.page = $scope.next ? $scope.page + 1 : $scope.page;
+      tweet.findByHashtag($scope.searchKey, { page: $scope.page })
         .then(function(r) {
-          $scope.tweets = r.data.result;
+          if (r.data.result.length) {
+            $scope.tweets = $scope.tweets.concat(r.data.result);
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          } else {
+            $scope.next = false;
+          }
         });
     }
   };
 
   var clearCriteria = function() {
+    $scope.page = 0;
+    $scope.next = true;
     $scope.searchKey = getDefaultCriteria();
-    $scope.loadData();
+    $scope.loadData($scope.next);
   };
 
   $scope.searchKey = getDefaultCriteria();
   $scope.loadData = loadData;
   $scope.clearCriteria = clearCriteria;
   $scope.loadData();
-
 })
 
 .controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail, tweet) {

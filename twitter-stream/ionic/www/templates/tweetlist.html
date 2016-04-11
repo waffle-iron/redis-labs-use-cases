@@ -1,4 +1,4 @@
-<ion-view view-title="Viewed Tweets">
+<ion-view view-title="Tweets">
   <div class="bar bar-subheader item-input-inset">
     <label class="item-input-wrapper" id="search-input">
       <i class="icon ion-search placeholder-icon"></i>
@@ -15,6 +15,7 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll ng-if="next" on-infinite="loadData()" distance="1%"></ion-infinite-scroll>
     <div class="card" ng-show="!tweets.length">
       <div class="item item-text-wrap">
         No tweets yet

@@ -5,8 +5,8 @@ angular.module('starter.services', [])
   var _favorites = [];
   var _swiped = [];
 
-  _tweet.findByHashtag = function(hashtag) {
-    return $http.get($rootScope.apiBase + '/hashtag/' + hashtag);
+  _tweet.findByHashtag = function(hashtag, queryString) {
+    return $http.get($rootScope.apiBase + '/hashtag/' + hashtag, { params: queryString });
   };
 
   _tweet.findById = function(id) {
