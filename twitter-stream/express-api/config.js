@@ -22,7 +22,9 @@ config.twitter =
 config.store = {
   tweetHash: 'tweetIndex',
   voteZset: 'voteIndex',
-  hashtagZset: 'hashtagIndex'
+  hashtagZset: 'hashtagIndex',
+  auths: 'auths',
+  user_next_id: 'user_next_id'
 };
 
 module.exports = config;

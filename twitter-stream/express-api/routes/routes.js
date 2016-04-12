@@ -46,7 +46,24 @@ var voteTweet = function(req, res, next) {
 };
 
 
+var customLogin = function(req, res, next) {
+  var token = req.headers['x-access-token'];
+  if(!token) {
+    return res.status(403).send({ success: false, message: 'No token provided.' });
+  }
+
+  search.findUser(token)
+    .then(function(result) {
+      req.user = result;
+      next();
+    })
+    .fail(function(err) {
+      return res.json({ success: false, message: 'Failed to authenticate token.' });
+    });
+};
+
 var appRouter = function(app) {
+  app.use(customLogin);
   app.get("/", rootFunc);
   app.get('/hashtag/:hashtag', findByHashtag);
   app.get('/tweet/:tweet', findById);

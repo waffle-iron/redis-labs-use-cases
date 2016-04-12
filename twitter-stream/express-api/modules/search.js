@@ -8,10 +8,42 @@ var redis_conn = require("redis");
 var redis = redis_conn.createClient(config.redis.url, {detect_buffers: true, no_ready_check: true});
 
 redis.on("error", function (err) {
-    console.log("Error: " + err);
+  console.log("Error: " + err);
 });
 
-exports.findRecommendations = function() {
+// get user id if exists otherwise create user
+exports.findUser = function(token) {
+  var deferred = Q.defer();
+
+  redis.hget(config.store.auths, token, function(err, reply) {
+    if(err) {
+     deferred.reject(err);
+     return;
+    }
+    if(reply === null) {
+      redis.incr(config.store.user_next_id, function(err, reply) {
+        if(err) {
+          deferred.reject(err);
+          return;
+        }
+        redis.hset(config.store.auths, token, reply, function(err, reply) {
+          if(err) {
+            deferred.reject(err);
+            return;
+          }
+          deferred.resolve(reply);
+        });
+
+      });
+    } else {
+      deferred.resolve(reply);
+    }
+  });
+
+  return deferred.promise;
+};
+
+exports.findRecommendations = function(userId) {
   var deferred = Q.defer();
   var rangeArgs = [ config.store.voteZset, 0, 9 ];
 
@@ -45,7 +77,7 @@ exports.findRecommendations = function() {
 
 };
 
-exports.voteTweet = function(tweetId) {
+exports.voteTweet = function(tweetId, userId) {
   var dfd = Q.defer();
   redis.zincrby(config.store.voteZset, 1, tweetId, function (err, reply) {
     if(err) {
@@ -58,7 +90,7 @@ exports.voteTweet = function(tweetId) {
   return dfd.promise;
 };
 
-exports.findById = function(tweetId) {
+exports.findById = function(tweetId, userId) {
   var res = null;
   var dfd = Q.defer();
   redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
@@ -73,7 +105,7 @@ exports.findById = function(tweetId) {
   return dfd.promise;
 };
 
-exports.findByHashtag = function(hashtag, offset, count) {
+exports.findByHashtag = function(hashtag, offset, count, userId) {
   var deferred = Q.defer();
   var score = stringHash(hashtag);
   var default_offset = 0;
