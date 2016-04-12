@@ -1,11 +1,11 @@
-var search = require("./../modules/search.js");
+var backend = require("./../modules/backend.js");
 
 var rootFunc = function(req, res) {
   res.send("Twitter Stream: Express API");
 };
 
 var findRecommendations = function(req, res, next) {
-  search.findRecommendations(req.params.tweet)
+  backend.findRecommendations(req.params.tweet)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
@@ -23,7 +23,7 @@ var findByHashtag = function(req, res, next) {
   }
 
   console.log("Searching", req.params.hashtag, offset, qty_per_page);
-  search.findByHashtag(req.params.hashtag, offset, qty_per_page)
+  backend.findByHashtag(req.params.hashtag, offset, qty_per_page)
     .then(function(result){
       res.json({"status" : "success", "result" : result });
     })
@@ -34,13 +34,13 @@ var findByHashtag = function(req, res, next) {
 };
 
 var findById = function(req, res, next) {
-  search.findById(req.params.tweet)
+  backend.findById(req.params.tweet)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
 var voteTweet = function(req, res, next) {
-  search.voteTweet(req.params.tweet)
+  backend.voteTweet(req.params.tweet)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
@@ -52,7 +52,7 @@ var customLogin = function(req, res, next) {
     return res.status(403).send({ success: false, message: 'No token provided.' });
   }
 
-  search.findUser(token)
+  backend.findUser(token)
     .then(function(result) {
       req.user = result;
       next();
