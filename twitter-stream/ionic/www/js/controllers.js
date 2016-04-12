@@ -35,13 +35,21 @@ angular.module('starter.controllers', [])
     }
   };
 
-  var clearCriteria = function() {
+  var clearCriteria = function(searchKey) {
     $scope.page = 0;
     $scope.next = true;
-    $scope.searchKey = getDefaultCriteria();
-    $scope.loadData($scope.next);
+    $scope.tweets = [];
+    $scope.searchKey = (searchKey)  ? searchKey : getDefaultCriteria();
   };
 
+  var clearAndSearch = function() {console.log("22", $scope.searchKey);
+    if($scope.searchKey) {
+      $scope.clearCriteria($scope.searchKey);
+      $scope.loadData();
+    }
+  };
+
+  $scope.clearAndSearch = clearAndSearch;
   $scope.searchKey = getDefaultCriteria();
   $scope.loadData = loadData;
   $scope.clearCriteria = clearCriteria;

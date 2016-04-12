@@ -2,7 +2,7 @@
   <div class="bar bar-subheader item-input-inset">
     <label class="item-input-wrapper" id="search-input">
       <i class="icon ion-search placeholder-icon"></i>
-      <input id="searchKey" type="search" placeholder="Search" autocorrect="off" ng-minlength="4" ng-model="searchKey" ng-change="loadData()">
+      <input id="searchKey" type="search" placeholder="Search" autocorrect="off" ng-minlength="4" ng-model="searchKey" ng-change="clearAndSearch()">
     </label>
     <button class="button button-clear icon ion-close-round" ng-click="clearCriteria()"></button>
   </div>
