@@ -4,12 +4,15 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.contrib.ui.tinderCards'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.contrib.ui.tinderCards', 'ngStorage', 'uuid4'])
 
-.run(function($ionicPlatform, $rootScope) {
+.run(function($ionicPlatform, $rootScope, $localStorage, uuid4) {
 
   $rootScope.apiBase = 'http://localhost:3000';
   $rootScope.defaultHashtag = 'sxsw';
+
+  //Default uuid
+  $rootScope.storage = $localStorage.$default({ 'uuid' : uuid4.generate() });
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,6 +26,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+  });
+})
+
+.config(function($httpProvider) {
+  $httpProvider.interceptors.push(function($rootScope) {
+    return {
+      'request': function(config) {
+        config.headers['x-access-token'] = $rootScope.storage.uuid;
+        return config;
+      }
+    };
   });
 })
 
