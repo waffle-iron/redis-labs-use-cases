@@ -58,9 +58,6 @@ angular.module('starter.controllers', [])
 
 .controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail, tweet) {
   $scope.tweet = tweetDetail;
-  $scope.favorite = tweet.favorite;
-  $scope.isFavorite = tweet.isFavorite;
-  $scope.unfavorite = tweet.unfavorite;
 })
 
 .controller('TweetFavoriteCtrl', function($scope, $stateParams, tweetFavorites) {
@@ -75,7 +72,6 @@ angular.module('starter.controllers', [])
 .controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweetList, tweet) {
 
   $scope.cards = tweetList;
-  $scope.favorite = tweet.favorite;
 
   $scope.cardDestroyed = function(index) {
     $scope.cards.splice(index, 1);
@@ -91,11 +87,12 @@ angular.module('starter.controllers', [])
   };
 
   $scope.cardSwipedLeft = function(card) {
+    tweet.nope(card.id);
     swipeCard(card);
   };
 
   $scope.cardSwipedRight = function(card) {
-    tweet.favorite(card);
+    tweet.like(card.id);
     swipeCard(card);
   };
 

@@ -24,7 +24,9 @@ config.store = {
   voteZset: 'voteIndex',
   hashtagZset: 'hashtagIndex',
   auths: 'auths',
-  user_next_id: 'user_next_id'
+  user_next_id: 'user_next_id',
+  likeSet: 'likeSet',
+  nopeSet: 'nodeSet',
 };
 
 module.exports = config;

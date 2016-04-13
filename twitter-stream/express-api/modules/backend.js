@@ -74,12 +74,74 @@ exports.findRecommendations = function(userId) {
   });
 
   return deferred.promise;
+};
 
+exports.findLikes = function(userId) {
+  var deferred = Q.defer();
+  var userLikeSet = config.store.likeSet + ':' + userId;
+
+  redis.smembers(userLikeSet, function (err, response) {
+    var result = [];
+    if(err) {
+      deferred.reject(err);
+    } else {
+      if (response.length === 0) {
+        // No result
+        deferred.resolve([]);
+      } else {
+        async.forEach(response, function (tweetId, callback) {
+          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+            // console.log(">>",reply);
+            result.push({ id: tweetId, content: reply });
+            callback();
+          });
+        }, function (err) {
+          if(err) {
+            deferred.reject(err);
+            return;
+          }
+          deferred.resolve(result);
+        });
+      }
+    }
+  });
+
+  return deferred.promise;
 };
 
 exports.voteTweet = function(tweetId, userId) {
   var dfd = Q.defer();
   redis.zincrby(config.store.voteZset, 1, tweetId, function (err, reply) {
+    if(err) {
+      dfd.reject(err);
+      return;
+    }
+    return dfd.resolve(reply);
+  });
+
+  return dfd.promise;
+};
+
+exports.likeTweet = function(tweetId, userId) {
+  var dfd = Q.defer();
+  var userLikeSet = config.store.likeSet + ':' + userId;
+
+  redis.sadd(userLikeSet, tweetId, function (err, reply) {
+    if(err) {
+      dfd.reject(err);
+      return;
+    }
+    return dfd.resolve(reply);
+  });
+
+  return dfd.promise;
+};
+
+exports.nopeTweet = function(tweetId, userId) {
+  var dfd = Q.defer();
+  var userNopeSet = config.store.nopeSet + ':' + userId;
+
+  redis.sadd(userNopeSet, tweetId, function (err, reply) {
     if(err) {
       dfd.reject(err);
       return;

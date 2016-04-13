@@ -76,7 +76,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'TweetFavoriteCtrl',
         resolve: {
           tweetFavorites: function(tweet) {
-            return tweet.getFavorites();
+            return tweet.getFavorites().then(function(r) {
+              return r.data.result;
+            });
           }
         }
       }

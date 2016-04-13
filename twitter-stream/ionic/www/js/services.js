@@ -17,47 +17,16 @@ angular.module('starter.services', [])
     return $http.get($rootScope.apiBase + '/recommendations/');
   };
 
-  _tweet.voteTweet = function(id) {
-    return $http.get($rootScope.apiBase + '/vote/' + id);
+  _tweet.like = function(id) {
+    return $http.get($rootScope.apiBase + '/like/' + id);
+  };
+
+  _tweet.nope = function(id) {
+    return $http.get($rootScope.apiBase + '/nope/' + id);
   };
 
   _tweet.getFavorites = function() {
-    return _favorites;
-  };
-
-  _tweet.favorite = function(tweet) {
-    var exists = false;
-    for (var i = 0; i < _favorites.length; i++) {
-      if (_favorites[i].id === tweet.id) {
-        exists = true;
-        break;
-      }
-    }
-
-    if (!exists) {
-      _favorites.push(tweet);
-      _tweet.voteTweet(tweet.id);
-    }
-  };
-
-  _tweet.unfavorite = function(tweet) {
-    for (var i = 0; i < _favorites.length; i++) {
-      if (_favorites[i].id === tweet.id) {
-        _favorites.splice(i, 1);
-        break;
-      }
-    }
-  };
-
-  _tweet.isFavorite = function(tweet) {
-    var exists = false;
-    for (var i = 0; i < _favorites.length; i++) {
-      if (_favorites[i].id === tweet.id) {
-        exists = true;
-        break;
-      }
-    }
-    return exists;
+    return $http.get($rootScope.apiBase + '/likes/');
   };
 
   _tweet.swipe = function(tweet) {

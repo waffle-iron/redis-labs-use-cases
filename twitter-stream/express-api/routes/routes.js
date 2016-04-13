@@ -5,7 +5,13 @@ var rootFunc = function(req, res) {
 };
 
 var findRecommendations = function(req, res, next) {
-  backend.findRecommendations(req.params.tweet)
+  backend.findRecommendations(req.params.tweet, req.user)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
+var findLikes = function(req, res, next) {
+  backend.findLikes(req.user)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
@@ -23,7 +29,7 @@ var findByHashtag = function(req, res, next) {
   }
 
   console.log("Searching", req.params.hashtag, offset, qty_per_page);
-  backend.findByHashtag(req.params.hashtag, offset, qty_per_page)
+  backend.findByHashtag(req.params.hashtag, offset, qty_per_page, req.user)
     .then(function(result){
       res.json({"status" : "success", "result" : result });
     })
@@ -34,17 +40,27 @@ var findByHashtag = function(req, res, next) {
 };
 
 var findById = function(req, res, next) {
-  backend.findById(req.params.tweet)
+  backend.findById(req.params.tweet, req.user)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
-var voteTweet = function(req, res, next) {
-  backend.voteTweet(req.params.tweet)
+
+var nopeTweet = function(req, res, next) {
+  backend.nopeTweet(req.params.tweet, req.user)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
+var likeTweet = function(req, res, next) {
+  backend.voteTweet(req.params.tweet, req.user)
+    .then(function(result) {
+      backend.likeTweet(req.params.tweet, req.user)
+      .then( function(result) { res.json({"status" : "success", "result" : result }); })
+      .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+    })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
 
 var customLogin = function(req, res, next) {
   var token = req.headers['x-access-token'];
@@ -67,7 +83,9 @@ var appRouter = function(app) {
   app.get("/", rootFunc);
   app.get('/hashtag/:hashtag', findByHashtag);
   app.get('/tweet/:tweet', findById);
-  app.get('/vote/:tweet', voteTweet);
+  app.get('/like/:tweet', likeTweet);
+  app.get('/likes/', findLikes);
+  app.get('/nope/:tweet', nopeTweet);
   app.get('/recommendations/', findRecommendations);
 };
 
