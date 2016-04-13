@@ -9,6 +9,10 @@ angular.module('starter.services', [])
     return $http.get($rootScope.apiBase + '/hashtag/' + hashtag, { params: queryString });
   };
 
+  _tweet.findToSwipe = function(hashtag) {
+    return $http.get($rootScope.apiBase + '/swipes/');
+  };
+
   _tweet.findById = function(id) {
     return $http.get($rootScope.apiBase + '/tweet/' + id);
   };

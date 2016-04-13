@@ -103,7 +103,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'StreamCtrl',
         resolve: {
           tweetList: function(tweet, $stateParams, $rootScope) {
-            return tweet.findByHashtag($rootScope.defaultHashtag).then(function(r) {
+            return tweet.findToSwipe($rootScope.defaultHashtag).then(function(r) {
               return r.data.result;
             });
           }

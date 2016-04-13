@@ -16,6 +16,13 @@ var findLikes = function(req, res, next) {
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
+
+var findToSwipe = function(req, res, next) {
+  backend.findToSwipe(req.user)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
 var findByHashtag = function(req, res, next) {
   var offset = 0;
   var qty_per_page = 10;
@@ -85,6 +92,7 @@ var appRouter = function(app) {
   app.get('/tweet/:tweet', findById);
   app.get('/like/:tweet', likeTweet);
   app.get('/likes/', findLikes);
+  app.get('/swipes/', findToSwipe);
   app.get('/nope/:tweet', nopeTweet);
   app.get('/recommendations/', findRecommendations);
 };

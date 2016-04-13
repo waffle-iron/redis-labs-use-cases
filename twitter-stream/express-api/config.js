@@ -27,7 +27,8 @@ config.store = {
   auths: 'auths',
   user_next_id: 'user_next_id',
   likeSet: 'likeSet',
-  nopeSet: 'nodeSet',
+  nopeSet: 'nopeSet',
+  swipedSet: 'swipedSet'
 };
 
 module.exports = config;
