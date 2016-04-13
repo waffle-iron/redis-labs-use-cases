@@ -7,6 +7,7 @@ var Twitter = require('twitter');
 var twitterText = require('twitter-text');
 var async = require('async');
 var stringHash = require('string-hash');
+var _ = require('lodash');
 
 // Set up Twitter client
 var client = new Twitter(config.twitter);
@@ -19,43 +20,57 @@ redis.on("error", function (err) {
     console.log("Error: " + err);
 });
 
+
+console.log("Initiating Streaming from", config.app.channels);
+
 /**
  * Stream statuses filtered by keyword
  * number of tweets per second depends on topic popularity
  **/
-console.log("Initiating Streaming");
-client.stream('statuses/filter', {track: config.app.keyword, lang: 'en'},  function(stream) {
+var twitterSubscribe  = function(channel) {
+  client.stream('statuses/filter', {track: channel, lang: 'en'},  function(stream) {
     stream.on('data', function(tweet) {
-        console.log(JSON.stringify(tweet.text, null, 4));
+      var tweetHashChannel = config.store.tweetHash + ':' + channel;
+      var tweetSetChannel = config.store.tweetSet + ':' + channel;
+      var voteZsetChannel = config.store.voteZset + ':' + channel;
+      var hashtagZsetChannel = config.store.hashtagZset + ':' + channel;
 
-        //Hash with tweet text
-        redis.hset(config.store.tweetHash, tweet.id_str, tweet.text);
+      console.log(JSON.stringify(channel, tweet.text, null, 4));
 
-        //Set with tweets id
-        redis.sadd(config.store.tweetSet, tweet.id_str);
+      //Hash with tweet text
+      redis.hset(tweetHashChannel, tweet.id_str, tweet.text);
 
-        //Preparing zset vote index
-        var tVote = [ config.store.voteZset, 0, tweet.id_str ];
-        redis.zadd(tVote);
+      //Set with tweets id
+      redis.sadd(tweetSetChannel, tweet.id_str);
 
-        var args = [ config.store.hashtagZset ];
-        async.forEach(twitterText.extractHashtags(tweet.text), function (hashtag, callback) {
-            console.log("Found hashtag ", hashtag);
-            args.push(stringHash(hashtag)); // djb2 string to int hash http://www.cse.yorku.ca/~oz/hash.html
-            args.push(tweet.id_str);
-            callback();
-        }, function (err) {
-            console.log(JSON.stringify(args, null, 4));
-            redis.zadd(args, function (err, response) {
-              if (err) {
-                console.error("ZADD error ", err);
-                return;
-              }
-            });
-        });
+      //Preparing zset vote index
+      var tVote = [ voteZsetChannel, 0, tweet.id_str ];
+      redis.zadd(tVote);
+
+      var args = [ hashtagZsetChannel ];
+      async.forEach(twitterText.extractHashtags(tweet.text),
+        function (hashtag, callback) {
+          console.log("Found hashtag ", hashtag);
+          args.push(stringHash(hashtag));
+          args.push(tweet.id_str);
+          callback();
+        },
+        function (err) {
+          console.log(JSON.stringify(args, null, 4));
+          redis.zadd(args, function (err, response) {
+            if (err) {
+              console.error("ZADD error ", err);
+              return;
+            }
+          });
+        }
+      );
     });
 
     stream.on('error', function(error) {
         console.log(error);
     });
-});
+  });
+};
+
+_.mapKeys(config.app.channels, twitterSubscribe);

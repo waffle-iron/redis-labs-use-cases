@@ -4,7 +4,7 @@ config.app = {
     name: "Twitter Stream API",
     description: "Twitter Stream to Redis with Express API",
     version: "0.0.1",
-    keyword: "#sxsw"
+    channels: [ 'sxsw' ]
 };
 
 config.redis = {

@@ -43,9 +43,11 @@ exports.findUser = function(token) {
   return deferred.promise;
 };
 
-exports.findRecommendations = function(userId) {
+exports.findRecommendations = function(userId, channel) {
   var deferred = Q.defer();
-  var rangeArgs = [ config.store.voteZset, 0, 9 ];
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
+  var voteZsetChannel = config.store.voteZset + ':' + channel;
+  var rangeArgs = [ voteZsetChannel, 0, 9 ];
 
   redis.zrevrange(rangeArgs, function (err, response) {
     var result = [];
@@ -57,7 +59,7 @@ exports.findRecommendations = function(userId) {
         deferred.resolve([]);
       } else {
         async.forEach(response, function (tweetId, callback) {
-          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+          redis.hget(tweetHashChannel, tweetId, function (err, reply) {
             // console.log(">>",reply);
             result.push({ id: tweetId, content: reply });
             callback();
@@ -76,9 +78,10 @@ exports.findRecommendations = function(userId) {
   return deferred.promise;
 };
 
-exports.findLikes = function(userId) {
+exports.findLikes = function(userId, channel) {
   var deferred = Q.defer();
-  var userLikeSet = config.store.likeSet + ':' + userId;
+  var userLikeSet = config.store.likeSet + ':' + userId + ':' + channel;
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
 
   redis.smembers(userLikeSet, function (err, response) {
     var result = [];
@@ -90,7 +93,7 @@ exports.findLikes = function(userId) {
         deferred.resolve([]);
       } else {
         async.forEach(response, function (tweetId, callback) {
-          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+          redis.hget(tweetHashChannel, tweetId, function (err, reply) {
             // console.log(">>",reply);
             result.push({ id: tweetId, content: reply });
             callback();
@@ -109,9 +112,10 @@ exports.findLikes = function(userId) {
   return deferred.promise;
 };
 
-exports.voteTweet = function(tweetId, userId) {
+exports.voteTweet = function(tweetId, userId, channel) {
+  var voteZsetChannel = config.store.voteZset + ':' + channel;
   var dfd = Q.defer();
-  redis.zincrby(config.store.voteZset, 1, tweetId, function (err, reply) {
+  redis.zincrby(voteZsetChannel, 1, tweetId, function (err, reply) {
     if(err) {
       dfd.reject(err);
       return;
@@ -122,9 +126,9 @@ exports.voteTweet = function(tweetId, userId) {
   return dfd.promise;
 };
 
-exports.likeTweet = function(tweetId, userId) {
+exports.likeTweet = function(tweetId, userId, channel) {
   var dfd = Q.defer();
-  var userLikeSet = config.store.likeSet + ':' + userId;
+  var userLikeSet = config.store.likeSet + ':' + userId + ':' + channel;
 
   redis.sadd(userLikeSet, tweetId, function (err, reply) {
     if(err) {
@@ -137,9 +141,9 @@ exports.likeTweet = function(tweetId, userId) {
   return dfd.promise;
 };
 
-exports.nopeTweet = function(tweetId, userId) {
+exports.nopeTweet = function(tweetId, userId, channel) {
   var dfd = Q.defer();
-  var userNopeSet = config.store.nopeSet + ':' + userId;
+  var userNopeSet = config.store.nopeSet + ':' + userId + ':' + channel;
 
   redis.sadd(userNopeSet, tweetId, function (err, reply) {
     if(err) {
@@ -152,10 +156,11 @@ exports.nopeTweet = function(tweetId, userId) {
   return dfd.promise;
 };
 
-exports.findById = function(tweetId, userId) {
+exports.findById = function(tweetId, userId, channel) {
   var res = null;
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
   var dfd = Q.defer();
-  redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+  redis.hget(tweetHashChannel, tweetId, function (err, reply) {
     if(err) {
       dfd.reject(err);
       return;
@@ -168,10 +173,12 @@ exports.findById = function(tweetId, userId) {
 };
 
 
-exports.findToSwipe = function(userId) {
-  var likeUserSet = config.store.likeSet + ':' + userId;
-  var nopeUserSet = config.store.nopeSet + ':' + userId;
-  var swipedUserSet = config.store.swipedSet + ':' + userId;
+exports.findToSwipe = function(userId, channel) {
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
+  var tweetSetChannel = config.store.tweetSet + ':' + channel;
+  var likeUserSet = config.store.likeSet + ':' + userId + ':' + channel;
+  var nopeUserSet = config.store.nopeSet + ':' + userId + ':' + channel;
+  var swipedUserSet = config.store.swipedSet + ':' + userId + ':' + channel;
   var unionArgs =  [ swipedUserSet, likeUserSet, nopeUserSet ];
   var deferred = Q.defer();
 
@@ -180,7 +187,7 @@ exports.findToSwipe = function(userId) {
       deferred.reject(err);
       return;
     }
-    var diffArgs = [ config.store.tweetSet, swipedUserSet ];
+    var diffArgs = [ tweetSetChannel, swipedUserSet ];
     redis.sdiff(diffArgs, function(err, response) {
 
       var result = [];
@@ -191,7 +198,7 @@ exports.findToSwipe = function(userId) {
           deferred.resolve([]);
         } else {
           async.forEach(response, function (tweetId, callback) {
-            redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+            redis.hget(tweetHashChannel, tweetId, function (err, reply) {
               result.push({ id: tweetId, content: reply});
               callback();
             });
@@ -211,14 +218,16 @@ exports.findToSwipe = function(userId) {
 };
 
 
-exports.findViewed = function(userId, offset, count) {
+exports.findViewed = function(userId, offset, count, channel) {
   var default_offset = 0;
   var default_count = 10;
   offset = (offset === undefined) ? default_offset : offset;
   count = (count === undefined) ? default_count : count;
 
-  var nopeUserSet = config.store.nopeSet + ':' + userId;
-  var diffArgs = [ config.store.tweetSet, nopeUserSet ];
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
+  var tweetSetChannel = config.store.tweetSet + ':' + channel;
+  var nopeUserSet = config.store.nopeSet + ':' + userId + ':' + channel;
+  var diffArgs = [ tweetSetChannel, nopeUserSet ];
 
   var deferred = Q.defer();
 
@@ -232,7 +241,7 @@ exports.findViewed = function(userId, offset, count) {
       } else {
         response = response.slice(offset, (offset+count));
         async.forEach(response, function (tweetId, callback) {
-          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+          redis.hget(tweetHashChannel, tweetId, function (err, reply) {
             result.push({ id: tweetId, content: reply});
             callback();
           });
@@ -250,7 +259,7 @@ exports.findViewed = function(userId, offset, count) {
   return deferred.promise;
 };
 
-exports.findByHashtag = function(hashtag, offset, count, userId) {
+exports.findByHashtag = function(hashtag, offset, count, userId, channel) {
   var deferred = Q.defer();
   var score = stringHash(hashtag);
   var default_offset = 0;
@@ -259,7 +268,9 @@ exports.findByHashtag = function(hashtag, offset, count, userId) {
   offset = (offset === undefined) ? default_offset : offset;
   count = (count === undefined) ? default_count : count;
 
-  var args1 = [ config.store.hashtagZset, score, score, 'LIMIT', offset, count ];
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
+  var hashtagZsetChannel = config.store.hashtagZset + ':' + channel;
+  var args1 = [ hashtagZsetChannel, score, score, 'LIMIT', offset, count ];
 
   redis.zrangebyscore(args1, function (err, response) {
     var result = [];
@@ -272,7 +283,7 @@ exports.findByHashtag = function(hashtag, offset, count, userId) {
       } else {
         //console.log('Result', response);
         async.forEach(response, function (tweetId, callback) {
-          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+          redis.hget(tweetHashChannel, tweetId, function (err, reply) {
             // console.log(">>",reply);
             result.push({ id: tweetId, content: reply});
             callback();
@@ -289,4 +300,8 @@ exports.findByHashtag = function(hashtag, offset, count, userId) {
   });
 
   return deferred.promise;
+};
+
+exports.getChannels = function() {
+  return config.app.channels;
 };

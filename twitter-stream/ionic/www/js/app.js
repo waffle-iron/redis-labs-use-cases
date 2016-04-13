@@ -10,6 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   $rootScope.apiBase = 'http://localhost:3000';
   $rootScope.defaultHashtag = 'sxsw';
+  $rootScope.channel = 'sxsw';
 
   //Default uuid
   $rootScope.storage = $localStorage.$default({ 'uuid' : uuid4.generate() });
@@ -53,6 +54,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.recommendations', {
     url: '/recommendations',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/recommendations.html',
@@ -70,6 +72,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.favorites', {
     url: '/favorites',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/favorites.html',
@@ -103,7 +106,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'StreamCtrl',
         resolve: {
           tweetList: function(tweet, $stateParams, $rootScope) {
-            return tweet.findToSwipe($rootScope.defaultHashtag).then(function(r) {
+            return tweet.findToSwipe().then(function(r) {
               return r.data.result;
             });
           }
