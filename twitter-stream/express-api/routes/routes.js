@@ -24,7 +24,18 @@ var findToSwipe = function(req, res, next) {
 };
 
 var findViewed = function(req, res, next) {
-  backend.findViewed(req.user)
+  var offset = 0;
+  var qty_per_page = 10;
+
+  if(req.query.page) {
+    offset = (parseInt(req.query.page)-1) * qty_per_page;
+  }
+
+  if(offset <= 0) {
+    offset = 0;
+  }
+
+  backend.findViewed(req.user, offset, qty_per_page)
     .then( function(result) { res.json({"status" : "success", "result" : result }); })
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };

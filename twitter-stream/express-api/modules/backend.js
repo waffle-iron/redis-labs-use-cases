@@ -211,9 +211,15 @@ exports.findToSwipe = function(userId) {
 };
 
 
-exports.findViewed = function(userId) {
+exports.findViewed = function(userId, offset, count) {
+  var default_offset = 0;
+  var default_count = 10;
+  offset = (offset === undefined) ? default_offset : offset;
+  count = (count === undefined) ? default_count : count;
+
   var nopeUserSet = config.store.nopeSet + ':' + userId;
   var diffArgs = [ config.store.tweetSet, nopeUserSet ];
+
   var deferred = Q.defer();
 
   redis.sdiff(diffArgs, function(err, response) {
@@ -224,6 +230,7 @@ exports.findViewed = function(userId) {
       if (response.length === 0) {
         deferred.resolve([]);
       } else {
+        response = response.slice(offset, (offset+count));
         async.forEach(response, function (tweetId, callback) {
           redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
             result.push({ id: tweetId, content: reply});

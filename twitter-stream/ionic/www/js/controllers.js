@@ -53,7 +53,6 @@ angular.module('starter.controllers', [])
   $scope.searchKey = getDefaultCriteria();
   $scope.loadData = loadData;
   $scope.clearCriteria = clearCriteria;
-  $scope.loadData();
 })
 
 .controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail, tweet) {
