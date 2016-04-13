@@ -211,6 +211,38 @@ exports.findToSwipe = function(userId) {
 };
 
 
+exports.findViewed = function(userId) {
+  var nopeUserSet = config.store.nopeSet + ':' + userId;
+  var diffArgs = [ config.store.tweetSet, nopeUserSet ];
+  var deferred = Q.defer();
+
+  redis.sdiff(diffArgs, function(err, response) {
+    var result = [];
+    if(err) {
+      deferred.reject(err);
+    } else {
+      if (response.length === 0) {
+        deferred.resolve([]);
+      } else {
+        async.forEach(response, function (tweetId, callback) {
+          redis.hget(config.store.tweetHash, tweetId, function (err, reply) {
+            result.push({ id: tweetId, content: reply});
+            callback();
+          });
+        }, function (err) {
+          if(err) {
+            deferred.reject(err);
+            return;
+          }
+          deferred.resolve(result);
+        });
+      }
+    }
+  });
+
+  return deferred.promise;
+};
+
 exports.findByHashtag = function(hashtag, offset, count, userId) {
   var deferred = Q.defer();
   var score = stringHash(hashtag);

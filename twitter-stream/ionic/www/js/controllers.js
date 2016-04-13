@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
   var loadData = function() {
     if($scope.searchKey && $scope.next) {
       $scope.page = $scope.next ? $scope.page + 1 : $scope.page;
-      tweet.findByHashtag($scope.searchKey, { page: $scope.page })
+      tweet.findViewed($scope.searchKey, { page: $scope.page })
         .then(function(r) {
           if (r.data.result.length) {
             $scope.tweets = $scope.tweets.concat(r.data.result);
@@ -42,7 +42,7 @@ angular.module('starter.controllers', [])
     $scope.searchKey = (searchKey)  ? searchKey : getDefaultCriteria();
   };
 
-  var clearAndSearch = function() {console.log("22", $scope.searchKey);
+  var clearAndSearch = function() {
     if($scope.searchKey) {
       $scope.clearCriteria($scope.searchKey);
       $scope.loadData();

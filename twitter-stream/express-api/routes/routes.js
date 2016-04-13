@@ -23,6 +23,12 @@ var findToSwipe = function(req, res, next) {
     .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
+var findViewed = function(req, res, next) {
+  backend.findViewed(req.user)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
 var findByHashtag = function(req, res, next) {
   var offset = 0;
   var qty_per_page = 10;
@@ -87,8 +93,9 @@ var customLogin = function(req, res, next) {
 
 var appRouter = function(app) {
   app.use(customLogin);
-  app.get("/", rootFunc);
+  app.get('/', rootFunc);
   app.get('/hashtag/:hashtag', findByHashtag);
+  app.get('/viewed/', findViewed);
   app.get('/tweet/:tweet', findById);
   app.get('/like/:tweet', likeTweet);
   app.get('/likes/', findLikes);
