@@ -21,6 +21,7 @@ config.twitter =
 
 config.store = {
   tweetHash: 'tweetIndex',
+  tweetSet: 'tweetSet',
   voteZset: 'voteIndex',
   hashtagZset: 'hashtagIndex',
   auths: 'auths',

@@ -31,13 +31,12 @@ client.stream('statuses/filter', {track: config.app.keyword, lang: 'en'},  funct
         //Hash with tweet text
         redis.hset(config.store.tweetHash, tweet.id_str, tweet.text);
 
-        //Preparing zset vote idnex
+        //Set with tweets id
+        redis.sadd(config.store.tweetSet, tweet.id_str);
+
+        //Preparing zset vote index
         var tVote = [ config.store.voteZset, 0, tweet.id_str ];
         redis.zadd(tVote);
-
-        // Add to set and list
-        // redis.sadd("tweetSet", tweet.text);
-        // redis.rpush('tweetList', tweet.text);
 
         var args = [ config.store.hashtagZset ];
         async.forEach(twitterText.extractHashtags(tweet.text), function (hashtag, callback) {
