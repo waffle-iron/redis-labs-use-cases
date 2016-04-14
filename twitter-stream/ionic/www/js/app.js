@@ -11,6 +11,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $rootScope.apiBase = 'http://localhost:3000';
   $rootScope.defaultHashtag = 'sxsw';
   $rootScope.channel = 'sxsw';
+  $rootScope.channels = ['sxsw', 'RedisConf'];
 
   //Default uuid
   $rootScope.storage = $localStorage.$default({ 'uuid' : uuid4.generate() });
@@ -90,6 +91,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.tweets', {
     url: '/tweets',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/tweetlist.html',
@@ -100,6 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.stream', {
     url: '/stream',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/stream.html',

@@ -9,6 +9,11 @@
             <div class="content-text"><p ng-bind-html="card.content | linky: '_blank'"></p></div>
           </div>
         </td-card>
+        <div class="card" ng-show="!cards.length">
+          <div class="item item-text-wrap">
+            No tweets yet
+          </div>
+        </div>
       </td-cards>
   </ion-content>
 </ion-view>

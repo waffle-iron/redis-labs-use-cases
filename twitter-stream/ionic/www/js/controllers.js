@@ -16,6 +16,13 @@ angular.module('starter.controllers', [])
   $scope.next = true;
   $scope.tweets = [];
 
+  var setChannel = function(channel) {
+    $rootScope.channel = channel;
+    $rootScope.defaultHashtag = channel;
+    $scope.searchKey = channel;
+    $scope.clearAndSearch();
+  };
+
   var getDefaultCriteria = function() {
     return $rootScope.defaultHashtag;
   };
@@ -53,6 +60,8 @@ angular.module('starter.controllers', [])
   $scope.searchKey = getDefaultCriteria();
   $scope.loadData = loadData;
   $scope.clearCriteria = clearCriteria;
+  $scope.setChannel = setChannel;
+  $scope.channels = $rootScope.channels;
 })
 
 .controller('TweetDetailCtrl', function($scope, $stateParams, tweetDetail, tweet) {
@@ -68,8 +77,7 @@ angular.module('starter.controllers', [])
   $scope.tweets = tweetList;
 })
 
-.controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweetList, tweet) {
-
+.controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweetList, tweet, $rootScope) {
   $scope.cards = tweetList;
 
   $scope.cardDestroyed = function(index) {
