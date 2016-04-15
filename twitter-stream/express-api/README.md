@@ -38,11 +38,6 @@ Point your browser:
   - Show tweet: http://localhost:3000/tweet/123456
 
 
-## Hosted version
-
-[Click here to run a hosted version](http://redis-twitter-stream.herokuapp.com)
-
-
 ## Help
 
 [Using PM2 command line](https://github.com/Unitech/pm2)
