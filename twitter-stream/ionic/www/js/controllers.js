@@ -77,11 +77,21 @@ angular.module('starter.controllers', [])
   $scope.tweets = tweetList;
 })
 
-.controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweetList, tweet, $rootScope) {
-  $scope.cards = tweetList;
+.controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweet, $rootScope) {
+  $scope.cards = [];
+
+  var loadData = function() {
+    tweet.findToSwipe()
+      .then(function(r) {
+        $scope.cards = r.data.result;
+      });
+  };
 
   $scope.cardDestroyed = function(index) {
     $scope.cards.splice(index, 1);
+    if(!$scope.cards.length) {
+      loadData();
+    }
   };
 
   var swipeCard = function(card) {
@@ -104,6 +114,7 @@ angular.module('starter.controllers', [])
   };
 
   updateSwiped();
+  loadData();
 
 })
 

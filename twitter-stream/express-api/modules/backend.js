@@ -180,6 +180,8 @@ exports.findToSwipe = function(userId, channel) {
   var nopeUserSet = config.store.nopeSet + ':' + userId + ':' + channel;
   var swipedUserSet = config.store.swipedSet + ':' + userId + ':' + channel;
   var unionArgs =  [ swipedUserSet, likeUserSet, nopeUserSet ];
+  var default_offset = 0;
+  var default_count = 10;
   var deferred = Q.defer();
 
   redis.sunionstore(unionArgs, function(err, result) {
@@ -197,6 +199,7 @@ exports.findToSwipe = function(userId, channel) {
         if (response.length === 0) {
           deferred.resolve([]);
         } else {
+          response = response.slice(default_offset, default_count);
           async.forEach(response, function (tweetId, callback) {
             redis.hget(tweetHashChannel, tweetId, function (err, reply) {
               result.push({ id: tweetId, content: reply});

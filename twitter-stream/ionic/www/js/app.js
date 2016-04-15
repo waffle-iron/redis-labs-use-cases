@@ -107,13 +107,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'menuContent': {
         templateUrl: 'templates/stream.html',
         controller: 'StreamCtrl',
-        resolve: {
-          tweetList: function(tweet, $stateParams, $rootScope) {
-            return tweet.findToSwipe().then(function(r) {
-              return r.data.result;
-            });
-          }
-        }
       }
     }
   })
