@@ -12,7 +12,7 @@
 
 # Redis usage
 
-## Data types and absctractions
+## Data types and abstractions
   1. auths (hash: uuid, userId)
   1. user_next_id (string: lastUserId )
   1. tweetIndex:**CHANNEL** (hash: tweetId, content)
@@ -24,9 +24,15 @@
   1. swipedSet:**USERID**:**CHANNEL** (set: tweetId)
 
 ## Functions
-  1. findRecommendations: Top ten voted tweets -> **ZREVRANGE(voteIndex:CHANNEL ,0,9)**
-  1. findLikes: Search likes for user on channel -> **SMEMBERS(likeSet:USERID:CHANNEL)**
-  1. voteTweet: **ZINCRBY(voteIndex:CHANNEL, 1, tweetId)**
-  1. findToSwipe: List All tweets (but not swiped ones) -> **SDIFF(tweetSet:CHANNEL, UNIONSTORE(nopeSet:USERID:CHANNEL, likeSet:USERID:CHANNEL))**
-  1. findViewed: List All tweets( but not nope) -> **SDIFF(tweetSet:CHANNEL, nopeSet:USERID:CHANNEL)**
-  1. findByHashtag: Search by hashtag -> **ZRANGEBYSCORE(hashtagIndex:CHANNEL, hashtag, hashtag, LIMIT, offset, count)**
+  1. findRecommendations: Top ten voted tweets
+    **ZREVRANGE(voteIndex:CHANNEL ,0,9)**
+  1. findLikes: Search likes for user on channel
+    **SMEMBERS(likeSet:USERID:CHANNEL)**
+  1. voteTweet:
+    **ZINCRBY(voteIndex:CHANNEL, 1, tweetId)**
+  1. findToSwipe: List All tweets (but not swiped ones)
+    **SDIFF(tweetSet:CHANNEL, UNIONSTORE(nopeSet:USERID:CHANNEL, likeSet:USERID:CHANNEL))**
+  1. findViewed: List All tweets( but not nope)
+    **SDIFF(tweetSet:CHANNEL, nopeSet:USERID:CHANNEL)**
+  1. findByHashtag: Search by hashtag
+    **ZRANGEBYSCORE(hashtagIndex:CHANNEL, hashtag, hashtag, LIMIT, offset, count)**
