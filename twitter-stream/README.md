@@ -9,7 +9,8 @@
 ## [Frontend: Ionic Framework](ionic)
   1. Mobile app consuming Express API
   1. Features: List tweets, Search by hashtag, List favorites, Show recommendations based on votes, Swipe left and right to fav tweets
-  1. [Click here to run a hosted version](http://redis-twitter-stream-ionic.herokuapp.com)
+  1. [Click here to run a Heroku hosted version](http://redis-twitter-stream-ionic.herokuapp.com)
+  1. [Click here to run a Pivotal hosted version](http://rl-dave.cfapps.io/)
 
 # Redis usage
 

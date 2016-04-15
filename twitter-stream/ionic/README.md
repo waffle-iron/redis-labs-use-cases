@@ -34,7 +34,8 @@ To run on Android:
 
 ## Hosted version
 
-[Click here to run a hosted version](http://redis-twitter-stream-ionic.herokuapp.com)
+ 1. [Click here to run a Heroku hosted version](http://redis-twitter-stream-ionic.herokuapp.com)
+ 1. [Click here to run a Pivotal hosted version](http://rl-dave.cfapps.io/)
 
 
 ## Deploy to Heroku
