@@ -38,6 +38,25 @@ Point your browser:
   - Show tweet: http://localhost:3000/tweet/123456
 
 
+## Deploy to Heroku
+
+ 1. Go and get a free account on [Heroku](http://www.heroku.com)
+ 1. Please create an app with rediscloud service on dashboard.
+ 1. Set your own credentials on heroku env vars on dashboard, look [config.js](./config.js)
+ 1. Setup your git remote pointing to heroku app: ```git remote add heroku git@heroku.com:{heroku-app-name}.git```
+
+To deploy On **branch master** and on git clone root dir:
+
+```sh
+git subtree push --prefix twitter-stream/express-api/ heroku master
+```
+
+Worker dont start until:
+
+```sh
+heroku ps:scale worker=1
+```
+
 ## Help
 
 [Using PM2 command line](https://github.com/Unitech/pm2)
