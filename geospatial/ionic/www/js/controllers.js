@@ -47,9 +47,9 @@ angular.module('starter.controllers', [])
       $scope.map.control.getGMap().setZoom($scope.currentZoom);
     });
  };
-
+  var geoPosOpts = { timeout: 10000, enableHighAccuracy: false };
   var defaultRadius = '100 mi';
-  var defaultPosition = { coords: { latitude: 37.767, longitude: -122.417 }};
+  var defaultPosition = 'San Francisco';
   var defaultMapOpts = {
       scrollwheel: false,
       zoomControl: false,
@@ -62,6 +62,18 @@ angular.module('starter.controllers', [])
       keyboardShortcuts: true
    };
 
+  var getMap = function(lat, long, zoom) {
+    return {
+      center: {
+        latitude: lat,
+        longitude: long
+      },
+      zoom: zoom,
+      control: {},
+      options: defaultMapOpts
+    };
+  };
+
   $scope.locations = _.map(locations, makeCheckbox);
   $scope.radiuses = _.map(radiuses, _.bind(makeCheckbox, {}, _, defaultRadius) );
   $scope.markers = [];
@@ -71,28 +83,21 @@ angular.module('starter.controllers', [])
 
   var renderMap = function(position) {
     $log.info(position);
-
     if (!position) {
-      position = defaultPosition;
+      location.findPos({ member: defaultPosition })
+        .then(function(r) {
+          $scope.map = getMap(r.data.result.lat, r.data.result.long, $scope.currentZoom);
+          findMarkers(r.data.result.lat, r.data.result.long);
+        });
+    } else {
+      $scope.map = getMap(position.coords.latitude, position.coords.longitude, $scope.currentZoom);
+      findMarkers(position.coords.latitude, position.coords.longitude);
     }
-
-    $scope.map = {
-      center: {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude
-      },
-      zoom: $scope.currentZoom,
-      control: {},
-      options: defaultMapOpts
-    };
-
-    findMarkers(position.coords.latitude, position.coords.longitude);
   };
 
   uiGmapGoogleMapApi.then(function(maps) {
-    var posOptions = { timeout: 10000, enableHighAccuracy: false };
     $cordovaGeolocation
-      .getCurrentPosition(posOptions)
+      .getCurrentPosition(geoPosOpts)
         .then(
           function (position) {
             $scope.position = position;
@@ -138,6 +143,7 @@ angular.module('starter.controllers', [])
 
     myPopup.then(function(res) {
       $log.debug('Change location', $scope.selectedLocation);
+      $scope.position = '';
       location.findPos({ member: $scope.selectedLocation })
         .then(function(r) {
           findMarkers(r.data.result.lat, r.data.result.long);
@@ -162,11 +168,15 @@ angular.module('starter.controllers', [])
     myPopup.then(function(res) {
       $log.debug('Change radius', $scope.selectedRadius);
       var mi = $scope.selectedRadius.split(' ');
-      $scope.currentZoom = radiusToZoomLevel(mi[0]);
-      location.findPos({ member: $scope.selectedLocation })
-        .then(function(r) {
-          findMarkers(r.data.result.lat, r.data.result.long);
+      $scope.currentZoom = radiusToZoomLevel(mi[0]); console.log();
+      if($scope.position) {
+        findMarkers($scope.position.coords.latitude, $scope.position.coords.longitude);
+      } else {
+        location.findPos({ member: $scope.selectedLocation })
+          .then(function(r) {
+            findMarkers(r.data.result.lat, r.data.result.long);
         });
+      }
     });
   };
 
