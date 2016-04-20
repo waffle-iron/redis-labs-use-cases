@@ -1,0 +1,14 @@
+{
+  "name": "Geospatial",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.2.4"
+  },
+  "dependencies": {
+    "angular-uuid4": "^0.3.1",
+    "ngstorage": "^0.3.10",
+    "ngCordova": "^0.1.26-alpha",
+    "ng-lodash": "^0.4.0",
+    "angular-google-maps": "^2.3.2"
+  }
+}
