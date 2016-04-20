@@ -12,7 +12,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('LocationListCtrl', function($scope, $rootScope, $q, $ionicPopup, $cordovaGeolocation, $timeout, $log, lodash, locations, radiuses, uiGmapGoogleMapApi, location) {
-  var markers = [];
 
   var radiusToZoomLevel = function(radius){
     return Math.round(16-Math.log(radius)/Math.log(2));
@@ -23,12 +22,34 @@ angular.module('starter.controllers', [])
     return { name: val, checked: checked };
   };
 
+  var findMarkers = function(lat, long) {
+    var q = { radius: $scope.selectedRadius, lat: lat, long: long};
+    location.findByCoords(q).then(function(r) {
+      var markers = _.map(r.data.result, function(v) {
+        return {
+          id: Math.random().toString(36).substring(7),
+          coords: {
+            latitude: v.lat,
+            longitude: v.long
+          },
+          options: {
+            label: v.name,
+            visible: true
+          }
+        };
+      });
+      $scope.markers = markers;
+      $scope.map.control.refresh({ latitude: lat, longitude: long});
+      $scope.map.control.getGMap().setZoom($scope.currentZoom);
+    });
+ };
+
   var defaultRadius = '100 mi';
   var defaultPosition = { coords: { latitude: 37.767, longitude: -122.417 }};
 
   $scope.locations = _.map(locations, makeCheckbox);
   $scope.radiuses = _.map(radiuses, _.bind(makeCheckbox, {}, _, defaultRadius) );
-  $scope.markers = markers;
+  $scope.markers = [];
   $scope.selectedRadius = defaultRadius;
   $scope.selectedLocation = '';
   $scope.currentZoom = radiusToZoomLevel(defaultRadius.split(' ')[0]);
@@ -113,7 +134,7 @@ angular.module('starter.controllers', [])
       $log.debug('Change location', $scope.selectedLocation);
       location.findPos({ member: $scope.selectedLocation })
         .then(function(r) {
-          $scope.map.control.refresh({ latitude: r.data.result.lat, longitude: r.data.result.long});
+          findMarkers(r.data.result.lat, r.data.result.long);
         });
     });
   };
@@ -136,7 +157,10 @@ angular.module('starter.controllers', [])
       $log.debug('Change radius', $scope.selectedRadius);
       var mi = $scope.selectedRadius.split(' ');
       $scope.currentZoom = radiusToZoomLevel(mi[0]);
-      $scope.map.control.getGMap().setZoom($scope.currentZoom);
+      location.findPos({ member: $scope.selectedLocation })
+        .then(function(r) {
+          findMarkers(r.data.result.lat, r.data.result.long);
+        });
     });
   };
 
