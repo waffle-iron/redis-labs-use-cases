@@ -1,9 +1,10 @@
 var radiuses = [
-  '50 km',
-  '100 km',
-  '200 km',
-  '400 km',
-  'Any'
+  '25 mi',
+  '50 mi',
+  '100 mi',
+  '200 mi',
+  '400 mi',
+  '800 mi'
 ];
 
 module.exports = radiuses;
