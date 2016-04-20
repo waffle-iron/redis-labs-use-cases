@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('LocationListCtrl', function($scope, $rootScope, $q, $ionicPopup, $cordovaGeolocation, $timeout, $log, lodash, locations, radiuses, uiGmapGoogleMapApi, location) {
+.controller('LocationListCtrl', function($scope, $rootScope, $q, $ionicPopup, $cordovaGeolocation, $timeout, $log, lodash, locations, radiuses, uiGmapGoogleMapApi, location, $ionicCollectionManager) {
 
   var radiusToZoomLevel = function(radius){
     return Math.round(16-Math.log(radius)/Math.log(2));
@@ -129,7 +129,7 @@ angular.module('starter.controllers', [])
 
   $scope.showPopupLocations = function() {
     var myPopup = $ionicPopup.show({
-      template: '<ion-checkbox ng-repeat="location in locations" ng-model="location.checked" ng-click="updateSelection($index, locations, location.name, \'selectedLocation\')">{{ location.name }}</ion-checkbox>',
+      template: '<ion-content overflow-scroll="true"><ion-checkbox collection-repeat="location in locations" ng-model="location.checked" ng-click="updateSelection($index, locations, location.name, \'selectedLocation\')">{{ location.name }}</ion-checkbox></ion-content>',
       title: 'Select Location',
       cssClass: 'checkboxes-popup checkbox-assertive',
       scope: $scope,
@@ -153,7 +153,7 @@ angular.module('starter.controllers', [])
 
   $scope.showPopupRadiuses = function() {
     var myPopup = $ionicPopup.show({
-      template: '<ion-checkbox ng-repeat="radius in radiuses" ng-model="radius.checked" ng-click="updateSelection($index, radiuses, radius.name, \'selectedRadius\')">{{ radius.name }}</ion-checkbox>',
+      template: '<ion-content overflow-scroll="true"><ion-checkbox collection-repeat="radius in radiuses" ng-model="radius.checked" ng-click="updateSelection($index, radiuses, radius.name, \'selectedRadius\')">{{ radius.name }}</ion-checkbox></ion-content>',
       title: 'Select Radius',
       cssClass: 'checkboxes-popup checkbox-assertive',
       scope: $scope,
@@ -167,7 +167,7 @@ angular.module('starter.controllers', [])
 
     myPopup.then(function(res) {
       $log.debug('Change radius', $scope.selectedRadius);
-      var mi = $scope.selectedRadius.split(' ');
+      var mi = ($scope.selectedRadius) ? $scope.selectedRadius.split(' ') : defaultRadius;
       $scope.currentZoom = radiusToZoomLevel(mi[0]); console.log();
       if($scope.position) {
         findMarkers($scope.position.coords.latitude, $scope.position.coords.longitude);

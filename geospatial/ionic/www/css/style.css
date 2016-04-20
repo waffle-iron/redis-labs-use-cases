@@ -20,3 +20,15 @@
     right: 0;
     left: 0;
 }
+
+.popup {
+  width: 90% !important;
+  height: 90%;
+  max-height: 90% !important;
+}
+.popup-body {
+    top: 40px;
+    padding: 10px;
+    overflow: auto;
+    height:100%;
+}
