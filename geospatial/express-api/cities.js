@@ -5,12 +5,6 @@ var cities = {
     "wikipedia": "Adak,_Alaska",
     "city": "Adak"
   },
-  "nuku%ca%bbalofa": {
-    "lat": -21.133,
-    "lon": -175.2,
-    "wikipedia": "Nuku%CA%BBalofa",
-    "city": "Nuku%CA%BBalofa"
-  },
   "apia": {
     "lat": -13.833,
     "lon": -171.833,
@@ -365,12 +359,6 @@ var cities = {
     "wikipedia": "Memphis,_Tennessee",
     "city": "Memphis"
   },
-  "m%c3%a9rida": {
-    "lat": 20.967,
-    "lon": -89.617,
-    "wikipedia": "M%C3%A9rida,_Yucat%C3%A1n",
-    "city": "M%C3%A9rida"
-  },
   "sansalvador": {
     "lat": 13.683,
     "lon": -89.183,
@@ -442,12 +430,6 @@ var cities = {
     "lon": -84.383,
     "wikipedia": "Atlanta",
     "city": "Atlanta"
-  },
-  "sanjos%c3%a9": {
-    "lat": 9.933,
-    "lon": -84.083,
-    "wikipedia": "San_Jos%C3%A9,_Costa_Rica",
-    "city": "San Jos%C3%A9"
   },
   "detroit": {
     "lat": 42.333,
@@ -605,12 +587,6 @@ var cities = {
     "wikipedia": "Ottawa",
     "city": "Ottawa"
   },
-  "medell%c3%adn": {
-    "lat": 6.233,
-    "lon": -75.567,
-    "wikipedia": "Medell%C3%ADn",
-    "city": "Medell%C3%ADn"
-  },
   "cartagena": {
     "lat": 10.4,
     "lon": -75.5,
@@ -641,12 +617,6 @@ var cities = {
     "wikipedia": "Jersey_City,_New_Jersey",
     "city": "Jersey City"
   },
-  "bogot%c3%a1": {
-    "lat": 4.6,
-    "lon": -74.067,
-    "wikipedia": "Bogot%C3%A1",
-    "city": "Bogot%C3%A1"
-  },
   "newyorkcity": {
     "lat": 40.717,
     "lon": -74.0,
@@ -671,12 +641,6 @@ var cities = {
     "wikipedia": "Valdivia,_Chile",
     "city": "Valdivia"
   },
-  "concepci%c3%b3n": {
-    "lat": -36.833,
-    "lon": -73.05,
-    "wikipedia": "Concepci%C3%B3n,_Chile",
-    "city": "Concepci%C3%B3n"
-  },
   "portauprince": {
     "lat": 18.533,
     "lon": -72.333,
@@ -694,12 +658,6 @@ var cities = {
     "lon": -71.633,
     "wikipedia": "Maracaibo",
     "city": "Maracaibo"
-  },
-  "valpara%c3%adso": {
-    "lat": -33.05,
-    "lon": -71.617,
-    "wikipedia": "Valpara%C3%ADso",
-    "city": "Valpara%C3%ADso"
   },
   "arequipa": {
     "lat": -16.4,
@@ -875,12 +833,6 @@ var cities = {
     "wikipedia": "Road_Town",
     "city": "Road Town"
   },
-  "c%c3%b3rdoba": {
-    "lat": -31.4,
-    "lon": -64.183,
-    "wikipedia": "C%C3%B3rdoba,_Argentina",
-    "city": "C%C3%B3rdoba"
-  },
   "portovelho": {
     "lat": -8.75,
     "lon": -63.9,
@@ -916,24 +868,6 @@ var cities = {
     "lon": -61.717,
     "wikipedia": "Basse-Terre",
     "city": "Basse-Terre"
-  },
-  "bah%c3%adablanca": {
-    "lat": -38.717,
-    "lon": -62.267,
-    "wikipedia": "Bah%C3%ADa_Blanca",
-    "city": "Bah%C3%ADa Blanca"
-  },
-  "st.john%27s": {
-    "lat": 47.55,
-    "lon": -52.7,
-    "wikipedia": "St._John%27s,_Newfoundland_and_Labrador",
-    "city": "St. John%27s"
-  },
-  "st.george%27s": {
-    "lat": 12.05,
-    "lon": -61.75,
-    "wikipedia": "St._George%27s,_Grenada",
-    "city": "St. George%27s"
   },
   "portofspain": {
     "lat": 10.667,
@@ -1013,12 +947,6 @@ var cities = {
     "wikipedia": "Stanley,_Falkland_Islands",
     "city": "Stanley"
   },
-  "asunci%c3%b3n": {
-    "lat": -25.267,
-    "lon": -57.667,
-    "wikipedia": "Asunci%C3%B3n",
-    "city": "Asunci%C3%B3n"
-  },
   "saintpierre": {
     "lat": 46.767,
     "lon": -56.167,
@@ -1030,12 +958,6 @@ var cities = {
     "lon": -56.167,
     "wikipedia": "Montevideo",
     "city": "Montevideo"
-  },
-  "cuiab%c3%a1": {
-    "lat": -15.583,
-    "lon": -56.083,
-    "wikipedia": "Cuiab%C3%A1",
-    "city": "Cuiab%C3%A1"
   },
   "paramaribo": {
     "lat": 5.867,
@@ -1054,12 +976,6 @@ var cities = {
     "lon": -54.617,
     "wikipedia": "Ciudad_del_Este",
     "city": "Ciudad del Este"
-  },
-  "chu%c3%ad": {
-    "lat": -33.683,
-    "lon": -53.45,
-    "wikipedia": "Chu%C3%AD",
-    "city": "Chu%C3%AD"
   },
   "pelotas": {
     "lat": -31.767,
@@ -1085,12 +1001,6 @@ var cities = {
     "wikipedia": "Porto_Alegre",
     "city": "Porto Alegre"
   },
-  "macap%c3%a1": {
-    "lat": 0.033,
-    "lon": -51.05,
-    "wikipedia": "Macap%C3%A1",
-    "city": "Macap%C3%A1"
-  },
   "assis": {
     "lat": -22.65,
     "lon": -50.4,
@@ -1103,35 +1013,11 @@ var cities = {
     "wikipedia": "Curitiba",
     "city": "Curitiba"
   },
-  "bel%c3%a9m": {
-    "lat": 1.467,
-    "lon": -48.483,
-    "wikipedia": "Bel%C3%A9m",
-    "city": "Bel%C3%A9m"
-  },
-  "bras%c3%adlia": {
-    "lat": -15.8,
-    "lon": -47.9,
-    "wikipedia": "Bras%C3%ADlia",
-    "city": "Bras%C3%ADlia"
-  },
   "campinas": {
     "lat": -22.9,
     "lon": -47.05,
     "wikipedia": "Campinas",
     "city": "Campinas"
-  },
-  "s%c3%a3opaulo": {
-    "lat": -23.55,
-    "lon": -46.633,
-    "wikipedia": "S%C3%A3o_Paulo",
-    "city": "S%C3%A3o Paulo"
-  },
-  "s%c3%a3ojos%c3%a9doscampos": {
-    "lat": -23.183,
-    "lon": -45.867,
-    "wikipedia": "S%C3%A3o_Jos%C3%A9_dos_Campos",
-    "city": "S%C3%A3o Jos%C3%A9 dos Campos"
   },
   "riodejaneiro": {
     "lat": -22.9,
@@ -1139,29 +1025,11 @@ var cities = {
     "wikipedia": "Rio_de_Janeiro",
     "city": "Rio de Janeiro"
   },
-  "vit%c3%b3ria": {
-    "lat": -20.317,
-    "lon": -40.333,
-    "wikipedia": "Vit%C3%B3ria,_Brazil",
-    "city": "Vit%C3%B3ria"
-  },
-  "ilh%c3%a9us": {
-    "lat": -14.783,
-    "lon": -39.05,
-    "wikipedia": "Ilh%C3%A9us",
-    "city": "Ilh%C3%A9us"
-  },
   "fortaleza": {
     "lat": -3.767,
     "lon": -38.567,
     "wikipedia": "Fortaleza",
     "city": "Fortaleza"
-  },
-  "macei%c3%b3": {
-    "lat": -9.65,
-    "lon": -35.717,
-    "wikipedia": "Macei%C3%B3",
-    "city": "Macei%C3%B3"
   },
   "recife": {
     "lat": -8.067,
@@ -1175,12 +1043,6 @@ var cities = {
     "wikipedia": "Horta_(Azores)",
     "city": "Horta (Azores)"
   },
-  "angradohero%c3%adsmo": {
-    "lat": 38.65,
-    "lon": -27.217,
-    "wikipedia": "Angra_do_Hero%C3%ADsmo",
-    "city": "Angra do Hero%C3%ADsmo"
-  },
   "pontadelgada": {
     "lat": 37.733,
     "lon": -25.667,
@@ -1193,23 +1055,11 @@ var cities = {
     "wikipedia": "Praia",
     "city": "Praia"
   },
-  "reykjav%c3%adk": {
-    "lat": 64.133,
-    "lon": -21.933,
-    "wikipedia": "Reykjav%C3%ADk",
-    "city": "Reykjav%C3%ADk"
-  },
   "dakar": {
     "lat": 14.683,
     "lon": -17.433,
     "wikipedia": "Dakar",
     "city": "Dakar"
-  },
-  "thi%c3%a8s": {
-    "lat": 14.833,
-    "lon": -17.1,
-    "wikipedia": "Thi%C3%A8s",
-    "city": "Thi%C3%A8s"
   },
   "serekunda": {
     "lat": 13.433,
@@ -1265,12 +1115,6 @@ var cities = {
     "wikipedia": "Freetown",
     "city": "Freetown"
   },
-  "elaai%c3%ban": {
-    "lat": 27.15,
-    "lon": -13.2,
-    "wikipedia": "El_Aai%C3%BAn",
-    "city": "El Aai%C3%BAn"
-  },
   "monrovia": {
     "lat": 6.317,
     "lon": -10.767,
@@ -1325,12 +1169,6 @@ var cities = {
     "wikipedia": "Rabat",
     "city": "Rabat"
   },
-  "t%c3%b3rshavn": {
-    "lat": 62.0,
-    "lon": -6.783,
-    "wikipedia": "T%C3%B3rshavn",
-    "city": "T%C3%B3rshavn"
-  },
   "dublin": {
     "lat": 53.333,
     "lon": -6.267,
@@ -1372,12 +1210,6 @@ var cities = {
     "lon": -4.483,
     "wikipedia": "Douglas,_Isle_of_Man",
     "city": "Douglas"
-  },
-  "m%c3%a1laga": {
-    "lat": 36.717,
-    "lon": -4.417,
-    "wikipedia": "M%C3%A1laga",
-    "city": "M%C3%A1laga"
   },
   "glasgow": {
     "lat": 55.85,
@@ -1492,12 +1324,6 @@ var cities = {
     "lon": -0.0,
     "wikipedia": "Greenwich",
     "city": "Greenwich"
-  },
-  "lom%c3%a9": {
-    "lat": 6.133,
-    "lon": 1.2,
-    "wikipedia": "Lom%C3%A9",
-    "city": "Lom%C3%A9"
   },
   "toulouse": {
     "lat": 43.6,
@@ -1631,18 +1457,6 @@ var cities = {
     "wikipedia": "Geneva",
     "city": "Geneva"
   },
-  "s%c3%a3otom%c3%a9": {
-    "lat": 0.333,
-    "lon": 6.683,
-    "wikipedia": "S%C3%A3o_Tom%C3%A9",
-    "city": "S%C3%A3o Tom%C3%A9"
-  },
-  "d%c3%bcsseldorf": {
-    "lat": 51.233,
-    "lon": 6.783,
-    "wikipedia": "D%C3%BCsseldorf",
-    "city": "D%C3%BCsseldorf"
-  },
   "cologne": {
     "lat": 50.95,
     "lon": 6.967,
@@ -1702,12 +1516,6 @@ var cities = {
     "lon": 8.517,
     "wikipedia": "Kano",
     "city": "Kano"
-  },
-  "z%c3%bcrich": {
-    "lat": 47.367,
-    "lon": 8.55,
-    "wikipedia": "Z%C3%BCrich",
-    "city": "Z%C3%BCrich"
   },
   "frankfurt": {
     "lat": 50.1,
@@ -1787,12 +1595,6 @@ var cities = {
     "wikipedia": "Innsbruck",
     "city": "Innsbruck"
   },
-  "yaound%c3%a9": {
-    "lat": 3.867,
-    "lon": 11.517,
-    "wikipedia": "Yaound%C3%A9",
-    "city": "Yaound%C3%A9"
-  },
   "munich": {
     "lat": 48.133,
     "lon": 11.567,
@@ -1834,12 +1636,6 @@ var cities = {
     "lon": 12.567,
     "wikipedia": "Copenhagen",
     "city": "Copenhagen"
-  },
-  "malm%c3%b6": {
-    "lat": 55.583,
-    "lon": 13.033,
-    "wikipedia": "Malm%C3%B6",
-    "city": "Malm%C3%B6"
   },
   "salzburg": {
     "lat": 47.8,
@@ -1913,12 +1709,6 @@ var cities = {
     "wikipedia": "Valletta",
     "city": "Valletta"
   },
-  "n%27djamena": {
-    "lat": 12.1,
-    "lon": 15.05,
-    "wikipedia": "N%27Djamena",
-    "city": "N%27Djamena"
-  },
   "brazzaville": {
     "lat": -4.267,
     "lon": 15.283,
@@ -1991,12 +1781,6 @@ var cities = {
     "wikipedia": "Bangui",
     "city": "Bangui"
   },
-  "gda%c5%84sk": {
-    "lat": 54.35,
-    "lon": 18.667,
-    "wikipedia": "Gda%C5%84sk",
-    "city": "Gda%C5%84sk"
-  },
   "budapest": {
     "lat": 47.467,
     "lon": 19.05,
@@ -2014,12 +1798,6 @@ var cities = {
     "lon": 19.817,
     "wikipedia": "Tirana",
     "city": "Tirana"
-  },
-  "krak%c3%b3w": {
-    "lat": 50.05,
-    "lon": 19.933,
-    "wikipedia": "Krak%C3%B3w",
-    "city": "Krak%C3%B3w"
   },
   "belgrade": {
     "lat": 44.817,
@@ -2147,12 +1925,6 @@ var cities = {
     "wikipedia": "Tartu",
     "city": "Tartu"
   },
-  "%c4%b0zmir": {
-    "lat": 38.433,
-    "lon": 27.15,
-    "wikipedia": "%C4%B0zmir",
-    "city": "%C4%B0zmir"
-  },
   "lubumbashi": {
     "lat": -11.667,
     "lon": 27.467,
@@ -2206,12 +1978,6 @@ var cities = {
     "lon": 28.567,
     "wikipedia": "Bulawayo",
     "city": "Bulawayo"
-  },
-  "chi%c5%9fin%c4%83u": {
-    "lat": 47.0,
-    "lon": 28.867,
-    "wikipedia": "Chi%C5%9Fin%C4%83u",
-    "city": "Chi%C5%9Fin%C4%83u"
   },
   "istanbul": {
     "lat": 41.0,
@@ -2531,12 +2297,6 @@ var cities = {
     "wikipedia": "Tskhinvali",
     "city": "Tskhinvali"
   },
-  "sana%27a": {
-    "lat": 15.35,
-    "lon": 44.2,
-    "wikipedia": "Sana%27a",
-    "city": "Sana%27a"
-  },
   "baghdad": {
     "lat": 33.317,
     "lon": 44.417,
@@ -2825,12 +2585,6 @@ var cities = {
     "wikipedia": "Omsk",
     "city": "Omsk"
   },
-  "mal%c3%a9": {
-    "lat": 4.167,
-    "lon": 73.5,
-    "wikipedia": "Mal%C3%A9",
-    "city": "Mal%C3%A9"
-  },
   "pune": {
     "lat": 18.517,
     "lon": 73.85,
@@ -2956,12 +2710,6 @@ var cities = {
     "lon": 85.333,
     "wikipedia": "Kathmandu",
     "city": "Kathmandu"
-  },
-  "%c3%9cr%c3%bcmqi": {
-    "lat": 43.8,
-    "lon": 87.583,
-    "wikipedia": "%C3%9Cr%C3%BCmqi",
-    "city": "%C3%9Cr%C3%BCmqi"
   },
   "norilsk": {
     "lat": 69.35,
@@ -3269,12 +3017,6 @@ var cities = {
     "wikipedia": "Bandung",
     "city": "Bandung"
   },
-  "hu%e1%ba%bf": {
-    "lat": 16.467,
-    "lon": 107.6,
-    "wikipedia": "Hu%E1%BA%BF",
-    "city": "Hu%E1%BA%BF"
-  },
   "danang": {
     "lat": 16.067,
     "lon": 108.233,
@@ -3286,12 +3028,6 @@ var cities = {
     "lon": 108.317,
     "wikipedia": "Nanning",
     "city": "Nanning"
-  },
-  "xi%27an": {
-    "lat": 34.267,
-    "lon": 108.9,
-    "wikipedia": "Xi%27an",
-    "city": "Xi%27an"
   },
   "pontianak": {
     "lat": 0.0,
@@ -3749,12 +3485,6 @@ var cities = {
     "wikipedia": "Geelong",
     "city": "Geelong"
   },
-  "hag%c3%a5t%c3%b1a": {
-    "lat": 13.483,
-    "lon": 144.75,
-    "wikipedia": "Hag%C3%A5t%C3%B1a,_Guam",
-    "city": "Hag%C3%A5t%C3%B1a"
-  },
   "dededo": {
     "lat": 13.517,
     "lon": 144.833,
@@ -3868,12 +3598,6 @@ var cities = {
     "lon": 159.95,
     "wikipedia": "Honiara",
     "city": "Honiara"
-  },
-  "noum%c3%a9a": {
-    "lat": -22.267,
-    "lon": 166.45,
-    "wikipedia": "Noum%C3%A9a",
-    "city": "Noum%C3%A9a"
   },
   "yarendistrict": {
     "lat": -0.55,
