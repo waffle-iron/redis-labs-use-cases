@@ -22,12 +22,16 @@ angular.module('starter.controllers', [])
     return { name: val, checked: checked };
   };
 
+  var randomStr =  function(qty) {
+    return Math.random().toString(36).substring(qty);
+  };
+
   var findMarkers = function(lat, long) {
     var q = { radius: $scope.selectedRadius, lat: lat, long: long};
     location.findByCoords(q).then(function(r) {
       var markers = _.map(r.data.result, function(v) {
         return {
-          id: Math.random().toString(36).substring(7),
+          id: randomStr(7),
           coords: {
             latitude: v.lat,
             longitude: v.long
@@ -81,6 +85,9 @@ angular.module('starter.controllers', [])
       control: {},
       options: options
     };
+
+    findMarkers(position.coords.latitude, position.coords.longitude);
+
   };
 
   uiGmapGoogleMapApi.then(function(maps) {
