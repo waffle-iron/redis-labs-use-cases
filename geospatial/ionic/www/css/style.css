@@ -32,3 +32,7 @@
     overflow: auto;
     height:100%;
 }
+
+.popup-body ion-content {
+    margin-bottom: 66px;
+}

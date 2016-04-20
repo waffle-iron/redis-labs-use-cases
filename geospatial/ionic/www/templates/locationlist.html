@@ -8,15 +8,15 @@
   </ion-content>
   <div class="bar bar-footer item-input-inset">
     <label class="item-input-wrapper">
-      <button ng-click="showPopupLocations()" class="button button-block button-outline button-assertive icon-right">
+      <button style="line-height: 14px;" ng-click="showPopupLocations()" class="button button-block button-outline button-assertive icon-right">
         Select Location
-        <b>{{selectedLocation}}</b>
+        <b ng-show="selectedLocation"><br>{{selectedLocation}}</b>
       </button>
     </label>
     <label class="item-input-wrapper" style="width: 50%">
-      <button ng-click="showPopupRadiuses()" class="button button-block button-outline button-assertive icon-right">
+      <button style="line-height: 14px;" ng-click="showPopupRadiuses()" class="button button-block button-outline button-assertive icon-right">
         Select Radiuses
-        <b>{{selectedRadius}}</b>
+        <b ng-show="selectedRadius"><br>{{selectedRadius}}</b>
       </button>
     </label>
   </div>
