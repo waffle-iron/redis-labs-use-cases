@@ -50,6 +50,17 @@ angular.module('starter.controllers', [])
 
   var defaultRadius = '100 mi';
   var defaultPosition = { coords: { latitude: 37.767, longitude: -122.417 }};
+  var defaultMapOpts = {
+      scrollwheel: false,
+      zoomControl: false,
+      draggable: true,
+      navigationControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      disableDoubleClickZoom: false,
+      keyboardShortcuts: true
+   };
 
   $scope.locations = _.map(locations, makeCheckbox);
   $scope.radiuses = _.map(radiuses, _.bind(makeCheckbox, {}, _, defaultRadius) );
@@ -65,17 +76,6 @@ angular.module('starter.controllers', [])
       position = defaultPosition;
     }
 
-    var options = {
-      scrollwheel: false,
-      zoomControl: false,
-      draggable: true,
-      navigationControl: false,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      disableDoubleClickZoom: false,
-      keyboardShortcuts: true
-    };
     $scope.map = {
       center: {
         latitude: position.coords.latitude,
@@ -83,11 +83,10 @@ angular.module('starter.controllers', [])
       },
       zoom: $scope.currentZoom,
       control: {},
-      options: options
+      options: defaultMapOpts
     };
 
     findMarkers(position.coords.latitude, position.coords.longitude);
-
   };
 
   uiGmapGoogleMapApi.then(function(maps) {
