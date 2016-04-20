@@ -78,7 +78,7 @@ exports.addLocation = function(location, lng, lat, userId) {
 };
 
 
-exports.findLocations = function(member, radius, unit, userId) {
+exports.findLocationsByMember = function(member, radius, unit, userId) {
   var locationGeoSet = config.store.locationGeoSet;
   var geoArgs = [ locationGeoSet, member, radius, unit ];
   var deferred = Q.defer();
@@ -88,6 +88,43 @@ exports.findLocations = function(member, radius, unit, userId) {
       deferred.reject(err);
     } else {
       deferred.resolve(response);
+    }
+  });
+
+  return deferred.promise;
+};
+
+exports.findLocationsByCoords = function(long, lat, radius, unit, userId) {
+  var locationGeoSet = config.store.locationGeoSet;
+  var geoArgs = [ locationGeoSet, long, lat, radius, unit, 'WITHCOORD' ];
+  var deferred = Q.defer();
+
+  redis.georadius(geoArgs, function(err, response) {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      var col = _.map(response, function(v,j) { return { name: v[0], long: v[1][0], lat: v[1][1] }; });
+      deferred.resolve(col);
+    }
+  });
+
+  return deferred.promise;
+};
+
+exports.findLocationPos = function(member, userId) {
+  var locationGeoSet = config.store.locationGeoSet;
+  var geoArgs = [ locationGeoSet, member ];
+  var deferred = Q.defer();
+
+  redis.geopos(geoArgs, function(err, response) {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      var obj = {};
+      if(_.every(response, Boolean)) {
+        obj = { name: member, long: response[0][0], lat: response[0][1] };
+      }
+      deferred.resolve(obj);
     }
   });
 
