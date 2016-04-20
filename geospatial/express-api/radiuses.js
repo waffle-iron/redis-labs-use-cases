@@ -1,4 +1,7 @@
 var radiuses = [
+  '1 mi',
+  '5 mi',
+  '10 mi',
   '25 mi',
   '50 mi',
   '100 mi',

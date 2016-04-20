@@ -48,7 +48,7 @@ angular.module('starter.controllers', [])
     });
  };
   var geoPosOpts = { timeout: 10000, enableHighAccuracy: false };
-  var defaultRadius = '100 mi';
+  var defaultRadius = '1 mi';
   var defaultPosition = 'San Francisco';
   var defaultMapOpts = {
       scrollwheel: false,
