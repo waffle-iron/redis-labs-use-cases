@@ -17,7 +17,7 @@ To install, do:
     apt-get -t experimental install redis-server
 ```
 
-### Compiling from source code
+### Compile from source code and install
 
 ```sh
     sudo apt-get install make
@@ -38,6 +38,7 @@ To install, do:
     sudo make install
     cd utils
     sudo ./install_server.sh
+    sudo update-rc.d redis_6379 defaults
 ```
 
 ## Install
