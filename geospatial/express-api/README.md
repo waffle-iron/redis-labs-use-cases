@@ -20,9 +20,9 @@ To install, do:
 ### Compiling from source code
 
 ```sh
-    apt-get install make
-    apt-get install gcc
-    apt-get install tcl
+    sudo apt-get install make
+    sudo apt-get install gcc
+    sudo apt-get install tcl
     wget https://github.com/antirez/redis/archive/3.2.0-rc3.tar.gz
     tar zxvf 3.2.0-rc3.tar.gz
     cd redis-3.2.0-rc3
@@ -35,6 +35,9 @@ To install, do:
     cd ..
     make
     make test
+    sudo make install
+    cd utils
+    sudo ./install_server.sh
 ```
 
 ## Install
