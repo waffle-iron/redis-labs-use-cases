@@ -21,7 +21,7 @@
  1. Go to **geo-workshop-base** branch `git checkout geo-workshop-base`
  1. How to use Redis client? **check here [backend.js](../express-api/modules/backend.js)**
 
-## Add Location
+## Add Location **[GEOADD Command](http://redis.io/commands/geoadd)**
 
 ### Redis backend
 
