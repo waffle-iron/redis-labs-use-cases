@@ -9,6 +9,7 @@
     "ngstorage": "^0.3.10",
     "ngCordova": "^0.1.26-alpha",
     "ng-lodash": "^0.4.0",
-    "angular-google-maps": "^2.3.2"
+    "angular-google-maps": "^2.3.2",
+    "angular-messages": "1.4.3"
   }
 }
