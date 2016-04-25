@@ -1,31 +1,31 @@
 # Geospatial: Workshop
 
-Lets create an app backed on GeoSpatial Redis.
-We will focus on Redis code and deliver a initial app.
-App by default will show you where are, then you can:
- * Add Location
- * Select new Location to center map and get Near locations
- * Select radius to zoom in or out near locations
+ * Lets create an app backed on GeoSpatial Redis.
+ * We will focus on Redis code and deliver a initial app.
+ * App by default will show you where are, then you can:
+    * Add Location
+    * Select new Location to center map and get Near locations
+    * Select radius to zoom in or out near locations
 
 ## Dependencies
  1. Install node and npm
- 1. Install redis 3.2 **(Follow instructions)[../express-api/README.md]**
- 1. Frontend deps: **(Follow instructions)[../ionic/README.md]**
+ 1. Install redis 3.2 **[Follow instructions](../express-api/README.md)
+ 1. Frontend deps: **[Follow instructions](../ionic/README.md)**
 
 ## Intro
  1. Clone repo `git clone https://github.com/Altoros/redis-labs-use-cases.git`
- 1. Config Geo App (config.js)[../express-api/config.js]
+ 1. Config Geo App [config.js](../express-api/config.js)
     * Redis credentials
     * Structure store names
     * Add default values if 1 (load cities as locations to test app)
  1. Go to **geo-workshop-base** branch `git checkout geo-workshop-base`
- 1. How to use Redis client? **check here (backend.js)[../express-api/modules/backend.js]**
+ 1. How to use Redis client? **check here [backend.js](../express-api/modules/backend.js)**
 
 ## Add Location
 
 ### Redis backend
 
-On (backend.js)[../express-api/modules/backend.js] add:
+On [backend.js](../express-api/modules/backend.js) add:
 
 ```javascript
   exports.addLocation = function(location, lng, lat, userId) {
@@ -48,7 +48,7 @@ On (backend.js)[../express-api/modules/backend.js] add:
 
 Check for add default location and add all locations on cities.js (json locations with lat and long)
 
-On (backend.js)[../express-api/modules/backend.js] add:
+On [backend.js](../express-api/modules/backend.js) add:
 
 ```javascript
   redis.on("ready", function () {
@@ -68,7 +68,7 @@ On (backend.js)[../express-api/modules/backend.js] add:
 
 ### Add feature and route on API
 
-On (routes.js)[../express-api/routes/routes.js] add:
+On [routes.js](../express-api/routes/routes.js) add:
 
 ```javascript
 var addLocation = function(req, res, next) {
