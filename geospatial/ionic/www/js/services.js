@@ -19,5 +19,9 @@ angular.module('starter.services', [])
     return $http.get($rootScope.apiBase + '/findpos/', { params: queryString });
   };
 
+  _location.addLocation = function(queryString) {
+    return $http.get($rootScope.apiBase + '/add/', { params: queryString });
+  };
+
   return _location;
 });

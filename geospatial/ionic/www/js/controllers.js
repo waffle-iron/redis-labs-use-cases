@@ -11,6 +11,46 @@ angular.module('starter.controllers', [])
 
 })
 
+.controller('LocationAddCtrl', function($scope, $rootScope, $log, $ionicPopup, location, $state) {
+
+  $scope.locationForm = {
+    name: '',
+    longitude : '',
+    latitude: ''
+  };
+
+  $scope.showAlert = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Location',
+      template: 'Location added successfully',
+      cssClass: 'popupsmall',
+      buttons: [ {
+        text: 'Ok',
+        type: 'button-assertive'
+      }]
+
+    });
+
+    alertPopup.then(function(res) {
+    });
+  };
+
+  $scope.submitLocation = function(form) {
+    if(form.$valid) {
+      $log.debug('New Location data to add', $scope.locationForm);
+      location.addLocation($scope.locationForm)
+        .then(
+          function (res) {
+            $scope.showAlert();
+          },
+          function(err) {
+            $log.error(err);
+          }
+        );
+    }
+  };
+})
+
 .controller('LocationListCtrl', function($scope, $rootScope, $q, $ionicPopup, $cordovaGeolocation, $timeout, $log, lodash, locations, radiuses, uiGmapGoogleMapApi, location, $ionicCollectionManager) {
 
   var radiusToZoomLevel = function(radius){

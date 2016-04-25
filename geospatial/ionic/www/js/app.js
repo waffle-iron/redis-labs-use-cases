@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ngStorage', 'uuid4', 'ngLodash', 'uiGmapgoogle-maps', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.filters', 'ngStorage', 'uuid4', 'ngLodash', 'uiGmapgoogle-maps', 'ngCordova', 'ngMessages'])
 
 .run(function($ionicPlatform, $rootScope, $localStorage, uuid4) {
 
@@ -53,6 +53,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
+  })
+
+  .state('app.add', {
+    url: '/add',
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/locationadd.html',
+        controller: 'LocationAddCtrl',
+      }
+    }
   })
 
   .state('app.locations', {
