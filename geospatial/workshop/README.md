@@ -9,7 +9,7 @@
 
 ## Dependencies
  1. Install node and npm
- 1. Install redis 3.2 **[Follow instructions](../express-api/README.md)
+ 1. Install redis 3.2 **[Follow instructions](../express-api/README.md)**
  1. Frontend deps: **[Follow instructions](../ionic/README.md)**
 
 ## Intro
