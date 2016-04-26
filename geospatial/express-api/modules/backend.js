@@ -77,6 +77,23 @@ exports.addLocation = function(location, lng, lat, userId) {
   return dfd.promise;
 };
 
+exports.findLocationsByCoords = function(long, lat, radius, unit, userId) {
+  var locationGeoSet = config.store.locationGeoSet;
+  var geoArgs = [ locationGeoSet, long, lat, radius, unit, 'WITHCOORD' ];
+  var deferred = Q.defer();
+
+  redis.georadius(geoArgs, function(err, response) {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      var col = _.map(response, function(v,j) { return { name: v[0], long: v[1][0], lat: v[1][1] }; });
+      deferred.resolve(col);
+    }
+  });
+
+  return deferred.promise;
+};
+
 exports.findLocationPos = function(member, userId) {
   var locationGeoSet = config.store.locationGeoSet;
   var geoArgs = [ locationGeoSet, member ];
