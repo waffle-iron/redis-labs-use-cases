@@ -4,9 +4,25 @@ var rootFunc = function(req, res) {
   res.send("Geospatial: Express API");
 };
 
+var findLocationPos = function(req, res, next) {
+  if(!req.query.member) {
+    return res.json({"status" : "error", "message" : 'No member provided.'});
+  }
+
+  backend.findLocationPos(req.query.member, req.user)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
 var findRadiuses = function(req, res, next) {
   var radiuses = backend.findRadiuses();
   return res.json({"status" : "success", "result" : radiuses });
+};
+
+var findMembers = function(req, res, next) {
+  backend.findMembers(req.user)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
 var customLogin = function(req, res, next) {
@@ -42,6 +58,8 @@ var addLocation = function(req, res, next) {
 var appRouter = function(app) {
   app.get('/', rootFunc);
   app.use(customLogin);
+  app.get('/findpos/', findLocationPos);
+  app.get('/members/', findMembers);
   app.get('/radiuses/', findRadiuses);
   app.get('/add/', addLocation);
 };
