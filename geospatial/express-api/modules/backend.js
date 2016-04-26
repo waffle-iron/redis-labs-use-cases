@@ -77,6 +77,42 @@ exports.addLocation = function(location, lng, lat, userId) {
   return dfd.promise;
 };
 
+exports.findLocationPos = function(member, userId) {
+  var locationGeoSet = config.store.locationGeoSet;
+  var geoArgs = [ locationGeoSet, member ];
+  var deferred = Q.defer();
+
+  redis.geopos(geoArgs, function(err, response) {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      var obj = {};
+      if(_.every(response, Boolean)) {
+        obj = { name: member, long: response[0][0], lat: response[0][1] };
+      }
+      deferred.resolve(obj);
+    }
+  });
+
+  return deferred.promise;
+};
+
+exports.findMembers = function(userId) {
+  var locationGeoSet = config.store.locationGeoSet;
+  var geoArgs = [ locationGeoSet, 0, -1 ];
+  var deferred = Q.defer();
+
+  redis.zrange(geoArgs, function(err, response) {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve(response);
+    }
+  });
+
+  return deferred.promise;
+};
+
 exports.findRadiuses = function() {
   return radiuses;
 };
