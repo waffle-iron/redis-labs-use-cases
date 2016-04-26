@@ -12,14 +12,6 @@
  1. Install redis 3.2 **[Follow instructions](../express-api/README.md)**
  1. Frontend deps: **[Follow instructions](../ionic/README.md)**
 
-## Intro
- 1. Clone repo `git clone https://github.com/Altoros/redis-labs-use-cases.git`
- 1. Go to **geo-workshop-base** branch `git checkout geo-workshop-base`
- 1. Config Geo App [config.js](../express-api/config.js)
-    * Redis credentials
-    * Structure store names
-    * Add default values if 1 (load cities as locations to test app)
-
 ## Libraries used
 
 ### Redis
@@ -37,7 +29,22 @@
  * [Lodash](https://lodash.com/): Library delivering modularity and performance.
 
 
-## Add Location **[GEOADD Command](http://redis.io/commands/geoadd)**
+## Intro
+ 1. Clone repo `git clone https://github.com/Altoros/redis-labs-use-cases.git`
+ 1. Go to Step 0 **geo_workshop_base** branch `git checkout geo_workshop_base`
+ 1. Config Geo App [config.js](../express-api/config.js)
+    * Redis credentials
+    * Structure store names
+    * Add default values if 1 (load cities as locations to test app)
+
+## Steps - git branches
+For each step we have a git branch with that code, if there is any problem.
+ 1. **Step 0 Code Base** - geo_workshop_base :  `git checkout geo_workshop_base`
+ 1. **Step 1 Add Location** - geo_workshop_add :  `git checkout geo_workshop_add`
+ 1. **Step 2 Get Locations** - geo_workshop_get :  `git checkout geo_workshop_get`
+ 1. **Step 3 Get Near Locations** - geo_workshop_near :  `git checkout geo_workshop_near`
+
+## Step 1 - Add Location **[GEOADD Command](http://redis.io/commands/geoadd)**
 
 ### Redis backend
 
@@ -105,7 +112,7 @@ var appRouter = function(app) {
 };
 ```
 
-## Get Locations **[GEOPOS](http://redis.io/commands/geopos) and [ZRANGE](http://redis.io/commands/zrange)**
+## Step 2 - Get Locations **[GEOPOS](http://redis.io/commands/geopos) and [ZRANGE](http://redis.io/commands/zrange)**
 
 ### Redis - Get location pos
 
@@ -192,7 +199,7 @@ var appRouter = function(app) {
 };
 ```
 
-## Get Near Locations **[GEORADIUS Command](http://redis.io/commands/georadius)**
+## Step 3 - Get Near Locations **[GEORADIUS Command](http://redis.io/commands/georadius)**
 
 ### Redis - backend
 
