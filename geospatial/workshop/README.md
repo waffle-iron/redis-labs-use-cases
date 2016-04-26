@@ -105,7 +105,7 @@ var appRouter = function(app) {
 };
 ```
 
-## Get Locations **[GEOPOS](http://redis.io/commands/geopos) and ZRANGE(http://redis.io/commands/zrange)**
+## Get Locations **[GEOPOS](http://redis.io/commands/geopos) and [ZRANGE](http://redis.io/commands/zrange)**
 
 ### Redis - Get location pos
 
