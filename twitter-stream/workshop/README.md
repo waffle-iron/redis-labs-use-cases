@@ -45,7 +45,9 @@
     * Structure store names
 
 ## Steps - git branches
+
 For each step we have a git branch with that code, if there is any problem.
+
  1. **Step 0 Code Base** - twitter_workshop_base :  `git checkout twitter_workshop_base`
  1. **Step 1 Worker** - twitter_workshop_worker: `git checkout twitter_workshop_worker`
  1. **Step 2 FindByHashtag** - twitter_workshop_hashtag: `git checkout twitter_workshop_hashtag`
@@ -58,6 +60,7 @@ For each step we have a git branch with that code, if there is any problem.
 We are subscribing to twitter thru twitter stream api with differente hashtags.
 
 When we recieve a stream we use:
+
  * HSET: Set tweet content and its id on HASH
  * SADD: Add tweet id on SET
  * ZADD: Add tweet id with 0 votes on zset
