@@ -4,6 +4,12 @@ var rootFunc = function(req, res) {
   res.send("Twitter Stream: Express API");
 };
 
+var findRecommendations = function(req, res, next) {
+  backend.findRecommendations(req.user, req.params.channel)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
 var findByHashtag = function(req, res, next) {
   var offset = 0;
   var qty_per_page = 10;
@@ -25,6 +31,22 @@ var findByHashtag = function(req, res, next) {
       console.error("Error", err);
       res.json({"status" : "error", "message" : err});
     });
+};
+
+var nopeTweet = function(req, res, next) {
+  backend.nopeTweet(req.params.tweet, req.user, req.params.channel)
+    .then( function(result) { res.json({"status" : "success", "result" : result }); })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+};
+
+var likeTweet = function(req, res, next) {
+  backend.voteTweet(req.params.tweet, req.user, req.params.channel)
+    .then(function(result) {
+      backend.likeTweet(req.params.tweet, req.user, req.params.channel)
+      .then( function(result) { res.json({"status" : "success", "result" : result }); })
+      .fail( function(err) { res.json({"status" : "error", "message" : err}); });
+    })
+    .fail( function(err) { res.json({"status" : "error", "message" : err}); });
 };
 
 var customLogin = function(req, res, next) {
@@ -52,6 +74,9 @@ var appRouter = function(app) {
   app.use(customLogin);
   app.get('/', rootFunc);
   app.get('/hashtag/hashtag/:channel', findByHashtag);
+  app.get('/like/:tweet/:channel', likeTweet);
+  app.get('/nope/:tweet/:channel', nopeTweet);
+  app.get('/recommendations/:channel', findRecommendations);
   app.get('/channels/', getChannels);
 };
 

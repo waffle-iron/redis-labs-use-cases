@@ -43,6 +43,85 @@ exports.findUser = function(token) {
   return deferred.promise;
 };
 
+exports.findRecommendations = function(userId, channel) {
+  var deferred = Q.defer();
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
+  var voteZsetChannel = config.store.voteZset + ':' + channel;
+  var rangeArgs = [ voteZsetChannel, 0, 9 ];
+
+  redis.zrevrange(rangeArgs, function (err, response) {
+    var result = [];
+    if(err) {
+      deferred.reject(err);
+    } else {
+      if (response.length === 0) {
+        // No result
+        deferred.resolve([]);
+      } else {
+        async.forEach(response, function (tweetId, callback) {
+          redis.hget(tweetHashChannel, tweetId, function (err, reply) {
+            // console.log(">>",reply);
+            result.push({ id: tweetId, content: reply });
+            callback();
+          });
+        }, function (err) {
+          if(err) {
+            deferred.reject(err);
+            return;
+          }
+          deferred.resolve(result);
+        });
+      }
+    }
+  });
+
+  return deferred.promise;
+};
+
+exports.voteTweet = function(tweetId, userId, channel) {
+  var voteZsetChannel = config.store.voteZset + ':' + channel;
+  var dfd = Q.defer();
+  redis.zincrby(voteZsetChannel, 1, tweetId, function (err, reply) {
+    if(err) {
+      dfd.reject(err);
+      return;
+    }
+    return dfd.resolve(reply);
+  });
+
+  return dfd.promise;
+};
+
+exports.likeTweet = function(tweetId, userId, channel) {
+  var dfd = Q.defer();
+  var userLikeSet = config.store.likeSet + ':' + userId + ':' + channel;
+
+  redis.sadd(userLikeSet, tweetId, function (err, reply) {
+    if(err) {
+      dfd.reject(err);
+      return;
+    }
+    return dfd.resolve(reply);
+  });
+
+  return dfd.promise;
+};
+
+exports.nopeTweet = function(tweetId, userId, channel) {
+  var dfd = Q.defer();
+  var userNopeSet = config.store.nopeSet + ':' + userId + ':' + channel;
+
+  redis.sadd(userNopeSet, tweetId, function (err, reply) {
+    if(err) {
+      dfd.reject(err);
+      return;
+    }
+    return dfd.resolve(reply);
+  });
+
+  return dfd.promise;
+};
+
 exports.findByHashtag = function(hashtag, offset, count, userId, channel) {
   var deferred = Q.defer();
   var score = stringHash(hashtag);
