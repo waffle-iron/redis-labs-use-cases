@@ -43,6 +43,49 @@ exports.findUser = function(token) {
   return deferred.promise;
 };
 
+exports.findByHashtag = function(hashtag, offset, count, userId, channel) {
+  var deferred = Q.defer();
+  var score = stringHash(hashtag);
+  var default_offset = 0;
+  var default_count = 10;
+
+  offset = (offset === undefined) ? default_offset : offset;
+  count = (count === undefined) ? default_count : count;
+
+  var tweetHashChannel = config.store.tweetHash + ':' + channel;
+  var hashtagZsetChannel = config.store.hashtagZset + ':' + channel;
+  var args1 = [ hashtagZsetChannel, score, score, 'LIMIT', offset, count ];
+
+  redis.zrangebyscore(args1, function (err, response) {
+    var result = [];
+    if(err) {
+      deferred.reject(err);
+    } else {
+      if (response.length === 0) {
+        // No result
+        deferred.resolve([]);
+      } else {
+        //console.log('Result', response);
+        async.forEach(response, function (tweetId, callback) {
+          redis.hget(tweetHashChannel, tweetId, function (err, reply) {
+            // console.log(">>",reply);
+            result.push({ id: tweetId, content: reply});
+            callback();
+          });
+        }, function (err) {
+          if(err) {
+            deferred.reject(err);
+            return;
+          }
+          deferred.resolve(result);
+        });
+      }
+    }
+  });
+
+  return deferred.promise;
+};
+
 exports.getChannels = function() {
   return config.app.channels;
 };
