@@ -17,6 +17,7 @@
     "lodash": "^4.11.0",
     "q": "^1.4.1",
     "redis": "^2.0.1",
+    "socket.io": "^1.4.5",
     "string-hash": "^1.1.0",
     "twitter": "^1.2.5",
     "twitter-text": "^1.13.4"
