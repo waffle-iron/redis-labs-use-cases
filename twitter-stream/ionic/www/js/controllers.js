@@ -11,10 +11,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('TweetListCtrl', function($scope, $rootScope, tweet, $q) {
+.controller('TweetListCtrl', function($scope, $rootScope, tweet, $q, socket) {
   $scope.page = 0;
   $scope.next = true;
   $scope.tweets = [];
+
+  socket.on('message', function (message) {
+    console.log("IO msg:", message);
+  });
 
   var setChannel = function(channel) {
     $rootScope.channel = channel;
