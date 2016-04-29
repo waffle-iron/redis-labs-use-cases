@@ -11,6 +11,10 @@ config.redis = {
   url: process.env.REDISCLOUD_URL || 'redis://localhost:6379',
 };
 
+config.io = {
+  channel: 'tweets'
+};
+
 config.twitter =
 {
     consumer_key: process.env.CONSUMER_KEY || '',
