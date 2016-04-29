@@ -37,6 +37,16 @@ redis.on('ready', function() {
 });
 
 redis.on("message", function(channel, message){
+  var msg;
+
   console.log(channel, message);
-  io.sockets.in(channel).emit('message', message);
+
+  try {
+    msg = JSON.parse(message);
+  }
+  catch (SyntaxError) {
+    return false;
+  }
+
+  io.sockets.in(channel).emit('message', msg);
 });
