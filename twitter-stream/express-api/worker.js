@@ -38,7 +38,8 @@ var twitterSubscribe  = function(channel) {
       console.log(JSON.stringify(channel, tweet.text, null, 4));
 
       //Publish tweet to IO
-      redis.publish(config.io.channel, _.assign({channel: channel }, tweet));
+      var obj = { channel: channel, id: tweet.id_str, content: tweet.text };
+      redis.publish(config.io.channel, JSON.stringify(obj));
 
       //Hash with tweet text
       redis.hset(tweetHashChannel, tweet.id_str, tweet.text);
