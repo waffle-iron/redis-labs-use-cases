@@ -1,5 +1,11 @@
 angular.module('starter.services', [])
 
+.factory('socket', function (socketFactory, $rootScope) {
+  return socketFactory({
+    ioSocket: io.connect($rootScope.apiBase)
+  });
+})
+
 .factory('tweet', function ($http, $rootScope) {
   var _tweet = {};
   var _swiped = [];

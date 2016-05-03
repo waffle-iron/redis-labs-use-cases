@@ -77,8 +77,25 @@ angular.module('starter.controllers', [])
   $scope.tweets = tweetList;
 })
 
-.controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweet, $rootScope) {
+.controller('StreamCtrl', function($scope, $stateParams, TDCardDelegate, tweet, $rootScope, socket, $log) {
   $scope.cards = [];
+  $scope.newTweets = [];
+
+  socket.on('message', function (message) {
+    if(message.channel == $rootScope.channel) {
+      $log.debug("IO msg:", message);
+      $scope.newTweets.push(message);
+    }
+  });
+
+  var loadNewItems = function() {
+    $log.debug('New Cards: ', $scope.newTweets);
+    $scope.cards = $scope.cards.concat($scope.newTweets);
+    $log.debug('All Cards: ', $scope.cards);
+    $scope.newTweets = [];
+  };
+
+  $scope.loadNewItems = loadNewItems;
 
   var loadData = function() {
     tweet.findToSwipe()

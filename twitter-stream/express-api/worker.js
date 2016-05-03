@@ -14,7 +14,7 @@ var client = new Twitter(config.twitter);
 
 // Set up connection to Redis
 var redis_conn = require("redis");
-var redis = redis_conn.createClient(config.redis.url, {detect_buffers: true, no_ready_check: true});
+var redis = redis_conn.createClient(config.redis.url, {no_ready_check: true});
 
 redis.on("error", function (err) {
     console.log("Error: " + err);
@@ -36,6 +36,10 @@ var twitterSubscribe  = function(channel) {
       var hashtagZsetChannel = config.store.hashtagZset + ':' + channel;
 
       console.log(JSON.stringify(channel, tweet.text, null, 4));
+
+      //Publish tweet to IO
+      var obj = { channel: channel, id: tweet.id_str, content: tweet.text };
+      redis.publish(config.io.channel, JSON.stringify(obj));
 
       //Hash with tweet text
       redis.hset(tweetHashChannel, tweet.id_str, tweet.text);

@@ -84,3 +84,14 @@ td-card img {
   transition: 0.2s opacity linear;
   opacity: 0;
 }
+
+.list-top {
+  padding-top: 0;
+}
+
+.list-top .item {
+  border-width-top: 0;
+  background: #f1f1f1;
+  text-align: center;
+  cursor: pointer;
+}

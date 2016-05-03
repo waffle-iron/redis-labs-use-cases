@@ -7,6 +7,8 @@
   "dependencies": {
     "ionic-ion-tinder-cards": "ionic-contrib-tinder-cards#*",
     "angular-uuid4": "^0.3.1",
-    "ngstorage": "^0.3.10"
+    "ngstorage": "^0.3.10",
+    "socket.io-client": "^1.4.5",
+    "angular-socket-io": "^0.7.0"
   }
 }
