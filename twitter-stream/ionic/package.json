@@ -2,6 +2,9 @@
   "name": "ionic-twitter-stream-sample",
   "version": "1.1.1",
   "description": "ionic: An Ionic project",
+  "scripts": {
+    "postinstall": "bower cache clean && bower install"
+  },
   "dependencies": {
     "express": "^4.13.4",
     "gulp": "^3.5.6",
