@@ -18,6 +18,13 @@ var server = app.listen(process.env.PORT || 3000, function () {
 
 var io = require('socket.io').listen(server);
 
+if (process.env.HEROKU) {
+  io.configure(function () {
+    io.set("transports", ["xhr-polling"]);
+    io.set("polling duration", 10);
+  });
+}
+
 io.on('connection', function(socket){
   console.log('IO Connect ', socket.id);
   socket.join(config.io.channel);
