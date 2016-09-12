@@ -89,6 +89,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
+  .state('app.nopes', {
+    url: '/nopes',
+    cache: false,
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/nopes.html',
+        controller: 'TweetNopeCtrl',
+        resolve: {
+          tweetNopes: function(tweet) {
+            return tweet.getNopes().then(function(r) {
+              return r.data.result;
+            });
+          }
+        }
+      }
+    }
+  })
+
   .state('app.tweets', {
     url: '/tweets',
     cache: false,

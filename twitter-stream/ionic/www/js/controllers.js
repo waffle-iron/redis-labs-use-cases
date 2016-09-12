@@ -72,6 +72,9 @@ angular.module('starter.controllers', [])
   $scope.tweets = tweetFavorites;
 })
 
+.controller('TweetNopeCtrl', function($scope, $stateParams, tweetNopes) {
+  $scope.tweets = tweetNopes;
+})
 
 .controller('RecommendationCtrl', function($scope, $stateParams, tweetList) {
   $scope.tweets = tweetList;

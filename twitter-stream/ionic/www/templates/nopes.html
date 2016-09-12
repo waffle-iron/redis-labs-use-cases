@@ -1,0 +1,17 @@
+<ion-view view-title="Nopes">
+  <ion-content id="content" class="has-header">
+    <ion-list>
+      <ion-item class="item-icon-right item-avatar" ng-repeat="tweet in tweets" type="item-text-wrap" ui-sref="app.tweet-detail({tweetId: tweet.id })">
+        <img ng-src="img/twitter-icon.png">
+        <h2></h2>
+        <p>{{tweet.content}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+    <div class="card" ng-show="!tweets.length">
+      <div class="item item-text-wrap">
+        No favorites yet
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
