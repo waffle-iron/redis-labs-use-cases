@@ -31,7 +31,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
-.config(function($httpProvider) {
+.config(function($httpProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.backButton.text('').previousTitleText(false);
+  $ionicConfigProvider.views.transition('none');
+
   $httpProvider.interceptors.push(function($rootScope) {
     return {
       'request': function(config) {
